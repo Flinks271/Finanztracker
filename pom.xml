@@ -7,6 +7,13 @@
   <groupId>de.dhbw.finanztracker</groupId>
   <artifactId>finanztracker</artifactId>
   <version>1.0.0-Snapshot</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>d-finanztracker-domain</module>
+    <module>c-finanztracker-application</module>
+    <module>b-finanztracker-adapters</module>
+    <module>a-finanztracker-plugin</module>
+  </modules>
 
   <name>finanztracker</name>
   <!-- FIXME change it to the project's website -->
@@ -14,8 +21,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.21</maven.compiler.source>
-    <maven.compiler.target>1.21</maven.compiler.target>
+    <maven.compiler.source>23</maven.compiler.source>
+    <maven.compiler.target>23</maven.compiler.target>
   </properties>
 
   <dependencies>
