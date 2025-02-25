@@ -1,0 +1,6 @@
+
+#ignore build target
+/target/
+
+#ignore IDE settings
+.vscode
