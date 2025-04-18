@@ -1,10 +1,8 @@
 package de.dhbw.finanztracker.domain.account;
 
-
-import org.apache.commons.lang3.Validate;
-
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 
+import org.apache.commons.lang3.Validate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -50,8 +48,28 @@ public class BankAccount implements IAccount {
     }
 
     @Override
+    public UUID getAccountId() {
+        return accountId;
+    }
+
+    @Override
+    public UUID getUserId() {
+        return userId;
+    }
+
+    @Override
     public double getBalance() {
         return balance;
+    }
+
+    @Override
+    public String getAccountName() {
+        return accountName;
+    }
+
+    @Override
+    public String getBankName() {
+        return bankName;
     }
 
     @Override
@@ -96,5 +114,6 @@ public class BankAccount implements IAccount {
             return false;
         }
     }
+
     
 }
