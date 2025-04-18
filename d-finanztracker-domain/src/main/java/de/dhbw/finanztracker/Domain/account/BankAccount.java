@@ -19,6 +19,7 @@ public class BankAccount implements IAccount {
         Validate.notNull(userId, "userId must not be null");
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
+        Validate.isTrue(balance > 0, "Balance must be positive, but was: %s", balance);
 
         this.accountId = UUID.randomUUID();
         this.userId = userId;
@@ -32,6 +33,7 @@ public class BankAccount implements IAccount {
         Validate.notNull(userId, "userId must not be null");
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
+        Validate.isTrue(balance > 0, "Balance must be positive, but was: %s", balance);
 
         this.accountId = accountId;
         this.userId = userId;
