@@ -3,7 +3,7 @@ package de.dhbw.finanztracker.Domain.account;
 import java.util.List;
 import de.dhbw.finanztracker.Domain.account.transaction.ITransaction;
 
-interface IAccount {
+public interface IAccount {
     double getBalance();
     String getAccountNumber();
     Integer getCounter();

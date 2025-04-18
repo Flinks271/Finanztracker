@@ -2,19 +2,42 @@ package de.dhbw.finanztracker.Domain.user;
 
 
 import org.apache.commons.lang3.Validate;
+import de.dhbw.finanztracker.Domain.account.IAccount;
+
+import java.util.List;
 import java.util.UUID;
 
 public class User {
     private final UUID userId;
     private final String username;
+    private List<IAccount> accounts;
 
-    public User(String username) {
+    public User(String username, List<IAccount> accounts) {
         Validate.notNull(username, "Username must not be null");
 
         this.userId = UUID.randomUUID();
         this.username = username;
+        this.accounts = accounts;
     }
 
-    public UUID getUserId() { return userId; }
-    public String getUsername() { return username; }
+    public UUID getUserId() { 
+        return userId; 
+    }
+
+    public String getUsername() { 
+        return username; 
+    }
+
+    public List<IAccount> getAccounts() { 
+        return accounts; 
+    }
+
+    public Boolean addAccount(IAccount account) {
+        Validate.notNull(account, "Account must not be null");
+        return accounts.add(account);
+    }
+    public Boolean removeAccount(IAccount account) {
+        Validate.notNull(account, "Account must not be null");
+        return accounts.remove(account);
+    }
 }
