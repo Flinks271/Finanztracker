@@ -7,25 +7,31 @@ import java.util.UUID;
 public class Transaction implements ITransaction {
     private final int transactionId;
     private final UUID bankAccountId;
+    private double amount;
+    private String description;
     private LocalDate date;
     private List<String> categories;
     private String counterparty;
     private final boolean isRecurring;
   
-    public Transaction(int transactionID, UUID bankAccountId, LocalDate date,
+    public Transaction(int transactionID, UUID bankAccountId, double amount, String description, LocalDate date,
         List<String> categories, String counterparty, boolean isRecurring) {
         this.transactionId = transactionID;
         this.bankAccountId = bankAccountId;
+        this.amount = amount;
+        this.description = description;
         this.date = date;
         this.categories = categories;
         this.counterparty = counterparty;
         this.isRecurring = true;       
     }
 
-    public Transaction(int transactionID, UUID bankAccountId, LocalDate date,
+    public Transaction(int transactionID, UUID bankAccountId, double amount, String description, LocalDate date,
         List<String> categories, String counterparty) {
         this.transactionId = transactionID;
         this.bankAccountId = bankAccountId;
+        this.amount = amount;
+        this.description = description;
         this.date = date;
         this.categories = categories;
         this.counterparty = counterparty;
@@ -41,6 +47,16 @@ public class Transaction implements ITransaction {
     @Override
     public UUID getBankAccountId() {
         return bankAccountId;
+    }
+
+    @Override
+    public double getAmount() {
+        return amount;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -69,6 +85,16 @@ public class Transaction implements ITransaction {
     public boolean isRecurring() {
         return isRecurring;
     }
+   
+    @Override
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public void setCounterparty(String counterparty) {
@@ -91,5 +117,6 @@ public class Transaction implements ITransaction {
     public void removeCategory(String category) {
         categories.remove(category);
     }
+
     
 }
