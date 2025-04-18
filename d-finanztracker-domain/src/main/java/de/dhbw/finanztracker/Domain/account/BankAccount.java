@@ -1,12 +1,13 @@
-package de.dhbw.finanztracker.Domain.account;
+package de.dhbw.finanztracker.domain.account;
 
 
 import org.apache.commons.lang3.Validate;
+
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import de.dhbw.finanztracker.Domain.account.transaction.ITransaction;
 
 public class BankAccount implements IAccount {
     private final UUID accountId;

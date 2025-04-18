@@ -1,4 +1,4 @@
-package de.dhbw.finanztracker.Domain.account.transaction;
+package de.dhbw.finanztracker.domain.account.transaction;
 
 import java.time.LocalDate;
 import java.util.List;

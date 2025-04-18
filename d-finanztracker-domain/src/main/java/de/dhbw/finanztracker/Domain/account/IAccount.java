@@ -1,7 +1,8 @@
-package de.dhbw.finanztracker.Domain.account;
+package de.dhbw.finanztracker.domain.account;
 
 import java.util.List;
-import de.dhbw.finanztracker.Domain.account.transaction.ITransaction;
+
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 
 public interface IAccount {
     double getBalance();

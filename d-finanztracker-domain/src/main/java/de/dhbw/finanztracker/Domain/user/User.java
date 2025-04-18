@@ -1,8 +1,8 @@
-package de.dhbw.finanztracker.Domain.user;
+package de.dhbw.finanztracker.domain.user;
 
 
 import org.apache.commons.lang3.Validate;
-import de.dhbw.finanztracker.Domain.account.IAccount;
+import de.dhbw.finanztracker.domain.account.IAccount;
 
 import java.util.List;
 import java.util.UUID;
