@@ -91,7 +91,7 @@
 **Postconditions:** Transaction history is displayed.  
 **Fullfilled:** no  
 
-## 6.1 Order and Filter Transaction History (Optional for expansion)
+### 6.1 Order and Filter Transaction History (Optional for expansion)
 **Description:** Allow users to categorize (order and filter) their transactions (e.g., groceries, rent, entertainment).  
 **Actors:** User  
 **Preconditions:** User must be logged in.  
