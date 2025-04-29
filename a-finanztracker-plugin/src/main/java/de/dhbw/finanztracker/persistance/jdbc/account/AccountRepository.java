@@ -12,12 +12,12 @@ public class AccountRepository implements IRepository {
     private final String dbPassword ;
 
 
-    AccountRepository() {
+    public AccountRepository() {
         // Load environment variables from .env file
         Dotenv dotenv = Dotenv.load();
-        this.dbUrl = dotenv.get("DB_URL");
-        this.dbUser = dotenv.get("DB_USER");
-        this.dbPassword = dotenv.get("DB_PASSWORD");
+        this.dbUrl = dotenv.get("POSTGRES_URL");
+        this.dbUser = dotenv.get("POSTGRES_USER");
+        this.dbPassword = dotenv.get("POSTGRES_PASSWORD");
 
     }
 
