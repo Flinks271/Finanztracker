@@ -1,11 +1,11 @@
 package de.dhbw.finanztracker.domain.account;
 
-import java.util.List;
+import java.sql.ResultSet;
 import java.util.UUID;
 
 public interface IAccountRepository {
-    List<IAccount> getAllAccounts();
-    IAccount getAccountById(UUID accountId);
-    void saveAccount(IAccount account);
+    ResultSet getAllAccounts();
+    ResultSet getAccountById(UUID accountId);
+    void saveAccount(String query);
     void deleteAccount(UUID accountId);
 }

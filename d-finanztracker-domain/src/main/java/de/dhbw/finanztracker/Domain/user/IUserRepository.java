@@ -1,11 +1,11 @@
 package de.dhbw.finanztracker.domain.user;
 
-import java.util.List;
+import java.sql.ResultSet;
 import java.util.UUID;
 
 public interface IUserRepository {
-    List<User> getAllUsers();
-    User getUserById(UUID accountId);
-    void saveUser(User account);
+    ResultSet getAllUsers();
+    ResultSet getUserById(UUID accountId);
+    void saveUser(String query);
     void deleteUser(UUID accountId);
 }
