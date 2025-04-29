@@ -34,3 +34,6 @@ build/
 
 ### Virtual Enviroment ###
 .env
+
+### Flyway Config ###
+flyway.conf
