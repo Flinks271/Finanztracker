@@ -1,12 +1,13 @@
 package de.dhbw.finanztracker.persistance.jdbc.user;
 
-import de.dhbw.finanztracker.domain.user.IUserRepository;
+import de.dhbw.finanztracker.domain.IRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
 import java.util.UUID;
 
-public class UserRepository implements IUserRepository {
+
+public class UserRepository implements IRepository {
     private final String dbUrl ;
     private final String dbUser ;
     private final String dbPassword ;
@@ -20,7 +21,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public ResultSet getAllUsers() {
+    public ResultSet getAll() {
         ResultSet resultSet = null;
         String query = "SELECT * FROM user";
 
@@ -36,7 +37,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public ResultSet getUserById(UUID userID) {
+    public ResultSet getById(UUID userID) {
         String query = "SELECT * FROM user WHERE user_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -52,7 +53,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void saveUser(String query) {
+    public void save(String query) {
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -63,7 +64,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void deleteUser(UUID accountId) {
+    public void deleteById(UUID accountId) {
         String query = "DELETE FROM user WHERE user_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

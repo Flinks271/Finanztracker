@@ -1,12 +1,12 @@
 package de.dhbw.finanztracker.persistance.jdbc.account;
 
-import de.dhbw.finanztracker.domain.account.IAccountRepository;
+import de.dhbw.finanztracker.domain.IRepository;
 
 import java.sql.*;
 import java.util.UUID;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class AccountRepository implements IAccountRepository {
+public class AccountRepository implements IRepository {
     private final String dbUrl ;
     private final String dbUser ;
     private final String dbPassword ;
@@ -22,7 +22,7 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public ResultSet getAllAccounts() {
+    public ResultSet getAll() {
         ResultSet resultSet = null;
         String query = "SELECT * FROM accounts";
 
@@ -38,7 +38,7 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public ResultSet getAccountById(UUID accountId) {
+    public ResultSet getById(UUID accountId) {
         String query = "SELECT * FROM accounts WHERE account_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -54,7 +54,7 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void saveAccount(String query) {
+    public void save(String query) {
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
@@ -65,7 +65,7 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void deleteAccount(UUID accountId) {
+    public void deleteById(UUID accountId) {
         String query = "DELETE FROM accounts WHERE account_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
