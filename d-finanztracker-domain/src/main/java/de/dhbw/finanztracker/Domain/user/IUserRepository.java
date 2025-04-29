@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface IUserRepository {
     ResultSet getAllUsers();
-    ResultSet getUserById(UUID accountId);
+    ResultSet getUserById(UUID userID);
     void saveUser(String query);
-    void deleteUser(UUID accountId);
+    void deleteUser(UUID userID);
 }
