@@ -1,4 +1,4 @@
-package de.dhbw.finanztracker.controller;
+package de.dhbw.finanztracker.controller.StartController;
 
 public class StartController {
 
