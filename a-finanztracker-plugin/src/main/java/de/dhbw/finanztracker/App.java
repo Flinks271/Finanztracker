@@ -2,6 +2,8 @@ package de.dhbw.finanztracker;
 
 
 import org.flywaydb.core.Flyway;
+
+import de.dhbw.finanztracker.controller.StartController.StartController;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class App {
@@ -13,6 +15,9 @@ public class App {
         System.out.println("Welcome to the FinanzTracker Application!");
 
         migrateDatabase();
+
+        StartController startController = new StartController();
+        startController.Start();
         
     }
 
