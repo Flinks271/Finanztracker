@@ -1,4 +1,4 @@
-package de.dhbw.finanztracker.controller.TransformData;
+package de.dhbw.finanztracker.TransformData;
 
 import de.dhbw.finanztracker.domain.account.BankAccount;
 import de.dhbw.finanztracker.domain.account.IAccount;
