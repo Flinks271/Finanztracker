@@ -1,9 +1,13 @@
 package de.dhbw.finanztracker;
 
+import de.dhbw.finanztracker.controller.StartController.StartController;
+import de.dhbw.finanztracker.domain.IRepository;
+import de.dhbw.finanztracker.persistance.jdbc.account.AccountRepository;
+import de.dhbw.finanztracker.persistance.jdbc.user.UserRepository;
+
+import java.util.List;
 
 import org.flywaydb.core.Flyway;
-
-import de.dhbw.finanztracker.controller.StartController.StartController;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class App {
@@ -16,8 +20,13 @@ public class App {
 
         migrateDatabase();
 
+        List<IRepository> repositories = List.of(
+                new AccountRepository(),
+                new UserRepository()
+        );
+
         StartController startController = new StartController();
-        startController.Start();
+        startController.Start(repositories);
         
     }
 
