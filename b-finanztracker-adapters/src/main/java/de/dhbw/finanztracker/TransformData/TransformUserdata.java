@@ -14,8 +14,12 @@ public class TransformUserdata {
         List<User> users = new ArrayList<>();
         User user = null;
     
-        while ((user = TransformUser(resultSet)) != null) {
-            users.add(user);
+        try {
+            while (resultSet.isClosed() == false) {
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return users;
     }

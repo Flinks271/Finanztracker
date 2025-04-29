@@ -15,8 +15,12 @@ public class TransformAccountdata {
         List<IAccount> accounts = new ArrayList<>();
         IAccount account = null;
 
-        while ((account = TransformAccount(resultSet)) != null) {
-            accounts.add(account);
+        try {
+            while (resultSet.isClosed() == false) {
+                accounts.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return accounts;
     }
