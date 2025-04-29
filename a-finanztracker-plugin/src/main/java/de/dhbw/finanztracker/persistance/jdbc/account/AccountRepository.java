@@ -41,9 +41,10 @@ public class AccountRepository implements IAccountRepository {
                 double balance = resultSet.getDouble("balance");
                 String accountName = resultSet.getString("account_name");
                 String bankName = resultSet.getString("bank_name");
+                int counter = resultSet.getInt("counter");
 
                 
-                IAccount account = new BankAccount(accountId, userId, balance, accountName, bankName, 0, new ArrayList<>());
+                IAccount account = new BankAccount(accountId, userId, balance, accountName, bankName, counter, new ArrayList<>());
                 accounts.add(account);
             }
         } catch (SQLException e) {
@@ -53,21 +54,22 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public IAccount getAccountById(String accountId) {
+    public IAccount getAccountById(UUID accountId) {
         String query = "SELECT * FROM accounts WHERE account_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, accountId);
+            preparedStatement.setString(1, accountId.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     UUID userId = UUID.fromString(resultSet.getString("user_id"));
                     double balance = resultSet.getDouble("balance");
                     String accountName = resultSet.getString("account_name");
                     String bankName = resultSet.getString("bank_name");
+                    int counter = resultSet.getInt("counter");
 
                     
-                    return new BankAccount(UUID.fromString(accountId), userId, balance, accountName, bankName, 0, new ArrayList<>());
+                    return new BankAccount(accountId, userId, balance, accountName, bankName, counter, new ArrayList<>());
                 }
             }
         } catch (SQLException e) {
@@ -95,12 +97,12 @@ public class AccountRepository implements IAccountRepository {
     }
 
     @Override
-    public void deleteAccount(String accountId) {
+    public void deleteAccount(UUID accountId) {
         String query = "DELETE FROM accounts WHERE account_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, accountId);
+            preparedStatement.setString(1, accountId.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
