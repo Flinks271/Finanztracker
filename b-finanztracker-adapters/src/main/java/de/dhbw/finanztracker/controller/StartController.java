@@ -1,4 +1,4 @@
-package de.dhbw.finanztracker.controller.StartController;
+package de.dhbw.finanztracker.controller;
 
 import de.dhbw.finanztracker.TransformData.TransformUserdata;
 import de.dhbw.finanztracker.domain.IRepository;
@@ -17,14 +17,16 @@ public class StartController {
 
         IRepository r = repositories.get(1);
         List<Map<String, Object>> result = r.getAll();
+        User user = null;
 
         if (result.isEmpty()) {
             NewUserRegistration.registerNewUser(r);
         } else {
             List<User> users = TransformUserdata.TransformUsers(result);
-            UserSelection.selectUser(users,r);
+            user = UserSelection.selectUser(users,r);
         }
-             
+
+
     }
 
 
