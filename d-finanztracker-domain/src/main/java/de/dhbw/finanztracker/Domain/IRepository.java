@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface IRepository {
     ResultSet getAll();
-    ResultSet getById(UUID id);
+    ResultSet getWhere(String condition);
     void save(String query);
     void deleteById(UUID accountId);
 }

@@ -37,12 +37,12 @@ public class UserRepository implements IRepository {
     }
 
     @Override
-    public ResultSet getById(UUID userID) {
-        String query = "SELECT * FROM user WHERE user_id = ?";
+    public ResultSet getWhere(String condition) {
+        String query = "SELECT * FROM user WHERE {condition}";
+        query = query.replace("{condition}", condition);
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, userID.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 return resultSet;
             }

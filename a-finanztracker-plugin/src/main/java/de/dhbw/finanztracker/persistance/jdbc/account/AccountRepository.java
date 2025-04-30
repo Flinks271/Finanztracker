@@ -38,8 +38,9 @@ public class AccountRepository implements IRepository {
     }
 
     @Override
-    public ResultSet getById(UUID accountId) {
-        String query = "SELECT * FROM accounts WHERE account_id = ?";
+    public ResultSet getWhere(String condition) {
+        String query = "SELECT * FROM accounts WHERE {condition}";
+        query = query.replace("{condition}", condition);
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
