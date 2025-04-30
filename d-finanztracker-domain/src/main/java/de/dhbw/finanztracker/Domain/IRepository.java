@@ -1,11 +1,12 @@
 package de.dhbw.finanztracker.domain;
 
-import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface IRepository {
-    ResultSet getAll();
-    ResultSet getWhere(String condition);
+    List<Map<String, Object>> getAll();
+    List<Map<String, Object>> getWhere(String condition);
     void save(String query);
     void deleteById(UUID accountId);
 }

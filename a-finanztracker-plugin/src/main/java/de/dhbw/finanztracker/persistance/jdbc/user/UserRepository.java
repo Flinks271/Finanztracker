@@ -4,6 +4,10 @@ import de.dhbw.finanztracker.domain.IRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -21,35 +25,54 @@ public class UserRepository implements IRepository {
     }
 
     @Override
-    public ResultSet getAll() {
-        ResultSet resultSet = null;
+    public List<Map<String, Object>> getAll() {
+        List<Map<String, Object>> rows = new ArrayList<>();
         String query = "SELECT * FROM userTable";
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             Statement statement = connection.createStatement()) {
-            resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            ResultSetMetaData meta = resultSet.getMetaData();
+            int columnCount = meta.getColumnCount();
 
-            return resultSet;
+            while (resultSet.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(meta.getColumnName(i), resultSet.getObject(i));
+                }
+                rows.add(row);
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
+        return rows;
     }
 
     @Override
-    public ResultSet getWhere(String condition) {
+    public List<Map<String, Object>> getWhere(String condition) {
+        List<Map<String, Object>> rows = new ArrayList<>();
         String query = "SELECT * FROM userTable WHERE {condition}";
         query = query.replace("{condition}", condition);
-        try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet;
-            }
+        try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            ResultSetMetaData meta = resultSet.getMetaData();
+            int columnCount = meta.getColumnCount();
+
+            while (resultSet.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(meta.getColumnName(i), resultSet.getObject(i));
+                }
+                rows.add(row);
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return rows;
     }
 
     @Override
