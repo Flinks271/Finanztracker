@@ -20,6 +20,15 @@ public class User {
         this.username = username;
         this.accounts = new ArrayList<IAccount>();
     }
+
+    public User(UUID userid, String username) {
+        Validate.notNull(username, "Username must not be null");
+        Validate.notNull(userid, "userid must not be null");
+
+        this.userId = userid;
+        this.username = username;
+        this.accounts = new ArrayList<IAccount>();
+    }
     
     public User(UUID userId,String username, List<IAccount> accounts) {
         Validate.notNull(username, "Username must not be null");
