@@ -8,11 +8,13 @@ import de.dhbw.finanztracker.ui.userInteractions.UserSelection;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class StartController {
 
 
     public void Start(List<IRepository> repositories) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Starting the application...");
 
         IRepository r = repositories.get(1);
@@ -20,15 +22,13 @@ public class StartController {
         User user = null;
 
         if (result.isEmpty()) {
-            NewUserRegistration.registerNewUser(r);
+            NewUserRegistration.registerNewUser(r,scanner);
         } else {
             List<User> users = TransformUserdata.TransformUsers(result);
-            user = UserSelection.selectUser(users,r);
+            user = UserSelection.selectUser(users,r,scanner);
         }
-
-
+        
+        AccountsOverviewController.Start(repositories, user, scanner);
     }
-
-
     
 }

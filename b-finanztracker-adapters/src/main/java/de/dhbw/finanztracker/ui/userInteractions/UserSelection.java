@@ -5,10 +5,11 @@ import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class UserSelection {
 
-    public static User selectUser(List<User> users, IRepository repository) {
+    public static User selectUser(List<User> users, IRepository repository, Scanner scanner) {
         TerminalUtility.clearScreen();
         User user = null;
 
@@ -18,7 +19,7 @@ public class UserSelection {
             System.out.println((i + 1) + ". " + users.get(i).getUsername());
         }
 
-        try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
+        try  {
             int selectedIndex = scanner.nextInt() - 1;
 
             if (selectedIndex >= 0 && selectedIndex < users.size()) {
@@ -28,12 +29,12 @@ public class UserSelection {
 
                 Thread.sleep(1000);
                 
-            } else if(selectedIndex == 0){
-                user = NewUserRegistration.registerNewUser(repository);
+            } else if(selectedIndex == -1){
+                user = NewUserRegistration.registerNewUser(repository, scanner);
             }else {
                 System.out.println("Invalid selection. Please try again.");
                 Thread.sleep(1000);
-                selectUser(users, repository);
+                selectUser(users, repository, scanner);
             }
 
         } catch (Exception e) {
