@@ -2,43 +2,29 @@ package de.dhbw.finanztracker.TransformData;
 
 import de.dhbw.finanztracker.domain.user.User;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class TransformUserdata {
 
 
-    public List<User> TransformUsers(ResultSet resultSet) {
+    public List<User> TransformUsers(List<Map<String, Object>> rows) {
         List<User> users = new ArrayList<>();
-        User user = null;
-    
-        try {
-            while (resultSet.isClosed() == false) {
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        for (Map<String, Object> map : rows) {
+            users.add(TransformUser(map));
+        }   
         return users;
     }
     
-    public User TransformUser(ResultSet resultSet) {
+    public User TransformUser(Map<String, Object> rows) {
         User user = null;
-    
-        try {
-            if (resultSet.next()) { // Prüfen, ob es eine nächste Zeile gibt
-                UUID userId = UUID.fromString(resultSet.getString("user_id"));
-                String username = resultSet.getString("username");
-    
-                // Erstelle ein neues User-Objekt
-                user = new User(userId, username, new ArrayList<>());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    
+        
+        UUID userId = UUID.fromString((String) rows.get("user_id"));
+        String username = (String) rows.get("username");
+        user = new User(userId, username);
+
         return user;
     }
     
