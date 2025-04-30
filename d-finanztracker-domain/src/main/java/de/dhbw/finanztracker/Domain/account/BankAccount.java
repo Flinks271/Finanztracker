@@ -9,21 +9,18 @@ import java.util.UUID;
 
 public class BankAccount implements IAccount {
     private final UUID accountId;
-    private final UUID userId;
     private double balance;
     private String accountName;
     private String bankName;
     private int counter;
     private List<ITransaction> transactionHistory;
 
-    public BankAccount(UUID userId, double balance, String accountName, String bankName) {
-        Validate.notNull(userId, "userId must not be null");
+    public BankAccount( double balance, String accountName, String bankName) {
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
         Validate.isTrue(balance > 0, "Balance must be positive, but was: %s", balance);
 
         this.accountId = UUID.randomUUID();
-        this.userId = userId;
         this.balance = balance;
         this.accountName = accountName;
         this.bankName = bankName;
@@ -31,15 +28,13 @@ public class BankAccount implements IAccount {
         this.transactionHistory = new ArrayList<ITransaction>();
     }
     
-    public BankAccount(UUID accountId, UUID userId, double balance, String accountName, String bankName, int counter, ArrayList<ITransaction> transactionHistory) {
+    public BankAccount(UUID accountId, double balance, String accountName, String bankName, int counter, ArrayList<ITransaction> transactionHistory) {
         Validate.notNull(accountId, "accountId must not be null");
-        Validate.notNull(userId, "userId must not be null");
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
         Validate.isTrue(balance > 0, "Balance must be positive, but was: %s", balance);
 
         this.accountId = accountId;
-        this.userId = userId;
         this.balance = balance;
         this.accountName = accountName;
         this.bankName = bankName;
@@ -50,11 +45,6 @@ public class BankAccount implements IAccount {
     @Override
     public UUID getAccountId() {
         return accountId;
-    }
-
-    @Override
-    public UUID getUserId() {
-        return userId;
     }
 
     @Override

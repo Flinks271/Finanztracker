@@ -7,7 +7,6 @@ import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 
 public interface IAccount {
     UUID getAccountId();
-    UUID getUserId();
     double getBalance();
     String getAccountNumber();
     Integer getCounter();
