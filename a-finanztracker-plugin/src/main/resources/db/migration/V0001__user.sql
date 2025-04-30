@@ -1,5 +1,4 @@
-CREATE TABLE user (
+CREATE TABLE userTable (
     user_id UUID PRIMARY KEY,
-    user_id UUID NOT NULL,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL
 );
