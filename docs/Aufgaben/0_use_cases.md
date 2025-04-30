@@ -19,7 +19,7 @@
 **Actors:** User  
 **Preconditions:** User must have a registered account.  
 **Postconditions:** User is granted access to their dashboard.  
-**Fullfilled:** no  
+**Fullfilled:** yes 
 
 ### 2.1 User Login (Optional for expansion)
 **Description:** Enable users to log in their account with their credentials.  

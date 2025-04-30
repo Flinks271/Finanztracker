@@ -1,12 +1,13 @@
 package de.dhbw.finanztracker.controller.StartController;
 
+import de.dhbw.finanztracker.TransformData.TransformUserdata;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.user.User;
-import de.dhbw.finanztracker.ui.userselection.UserSelection;
+import de.dhbw.finanztracker.ui.userInteractions.NewUserRegistration;
+import de.dhbw.finanztracker.ui.userInteractions.UserSelection;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class StartController {
 
@@ -15,18 +16,15 @@ public class StartController {
         System.out.println("Starting the application...");
 
         IRepository r = repositories.get(1);
-        ResultSet resultSet = r.getAll();
+        List<Map<String, Object>> result = r.getAll();
 
-        try {
-            if (resultSet.isClosed()) {
-                UserSelection.newUserRegistration(r);
-            } else {
-                
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }       
+        if (result.isEmpty()) {
+            NewUserRegistration.registerNewUser(r);
+        } else {
+            List<User> users = TransformUserdata.TransformUsers(result);
+            UserSelection.selectUser(users,r);
+        }
+             
     }
 
 
