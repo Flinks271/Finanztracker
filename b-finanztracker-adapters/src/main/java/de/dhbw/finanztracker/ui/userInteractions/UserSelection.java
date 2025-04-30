@@ -32,6 +32,8 @@ public class UserSelection {
                 user = NewUserRegistration.registerNewUser(repository);
             }else {
                 System.out.println("Invalid selection. Please try again.");
+                Thread.sleep(1000);
+                selectUser(users, repository);
             }
 
         } catch (Exception e) {
