@@ -51,6 +51,12 @@ public class User {
         return accounts; 
     }
 
+    public void setAccounts(List<IAccount> accounts) {
+        Validate.notNull(accounts, "Accounts must not be null");
+        
+        this.accounts = accounts;
+    }
+
     public Boolean addAccount(IAccount account) {
         Validate.notNull(account, "Account must not be null");
         return accounts.add(account);
