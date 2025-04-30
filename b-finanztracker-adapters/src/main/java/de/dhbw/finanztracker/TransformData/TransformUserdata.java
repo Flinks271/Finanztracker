@@ -10,7 +10,7 @@ import java.util.UUID;
 public class TransformUserdata {
 
 
-    public List<User> TransformUsers(List<Map<String, Object>> rows) {
+    public static List<User> TransformUsers(List<Map<String, Object>> rows) {
         List<User> users = new ArrayList<>();
         for (Map<String, Object> map : rows) {
             users.add(TransformUser(map));
@@ -18,17 +18,17 @@ public class TransformUserdata {
         return users;
     }
     
-    public User TransformUser(Map<String, Object> rows) {
+    public static User TransformUser(Map<String, Object> rows) {
         User user = null;
         
-        UUID userId = UUID.fromString((String) rows.get("user_id"));
+        UUID userId =  (UUID) rows.get("user_id");
         String username = (String) rows.get("username");
         user = new User(userId, username);
 
         return user;
     }
     
-    public String generateInsertQuery(User user) {
+    public static String generateInsertQuery(User user) {
         String query = "INSERT INTO user (user_id, username) " +
                        "VALUES ({user_id}, {username})";
     
