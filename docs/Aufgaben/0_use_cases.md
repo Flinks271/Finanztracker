@@ -4,8 +4,8 @@
 **Description:** Allow users to create an account by providing a username.  
 **Actors:** User  
 **Preconditions:** None  
-**Postconditions:** User account is created and stored in the database.
-**Fullfilled:** no  
+**Postconditions:** User account is created and stored in the database.  
+**Fullfilled:** yes
 
 ### 1.1 User Registration (Optional for expansion)
 **Description:** Allow users to create an account by providing a username, an email and a password.  
