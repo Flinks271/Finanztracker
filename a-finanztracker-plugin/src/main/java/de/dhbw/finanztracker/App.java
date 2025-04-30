@@ -1,6 +1,6 @@
 package de.dhbw.finanztracker;
 
-import de.dhbw.finanztracker.controller.StartController.StartController;
+import de.dhbw.finanztracker.controller.StartController;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.persistance.jdbc.account.AccountRepository;
 import de.dhbw.finanztracker.persistance.jdbc.user.UserRepository;
