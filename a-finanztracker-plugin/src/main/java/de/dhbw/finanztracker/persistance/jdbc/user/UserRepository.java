@@ -23,7 +23,7 @@ public class UserRepository implements IRepository {
     @Override
     public ResultSet getAll() {
         ResultSet resultSet = null;
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM userTable";
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             Statement statement = connection.createStatement()) {
@@ -38,7 +38,7 @@ public class UserRepository implements IRepository {
 
     @Override
     public ResultSet getWhere(String condition) {
-        String query = "SELECT * FROM user WHERE {condition}";
+        String query = "SELECT * FROM userTable WHERE {condition}";
         query = query.replace("{condition}", condition);
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -65,7 +65,7 @@ public class UserRepository implements IRepository {
 
     @Override
     public void deleteById(UUID accountId) {
-        String query = "DELETE FROM user WHERE user_id = ?";
+        String query = "DELETE FROM userTable WHERE user_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
