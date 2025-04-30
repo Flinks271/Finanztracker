@@ -5,7 +5,7 @@
 **Actors:** User  
 **Preconditions:** None  
 **Postconditions:** User account is created and stored in the database.  
-**Fullfilled:** yes
+**Fullfilled:** <span style="color:green">yes</span>.
 
 ### 1.1 User Registration (Optional for expansion)
 **Description:** Allow users to create an account by providing a username, an email and a password.  
@@ -19,7 +19,7 @@
 **Actors:** User  
 **Preconditions:** User must have a registered account.  
 **Postconditions:** User is granted access to their dashboard.  
-**Fullfilled:** yes 
+**Fullfilled:** <span style="color:green">yes</span>
 
 ### 2.1 User Login (Optional for expansion)
 **Description:** Enable users to log in their account with their credentials.  
