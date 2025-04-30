@@ -43,8 +43,6 @@ public class AccountRepository implements IRepository {
         query = query.replace("{condition}", condition);
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, accountId.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 return resultSet;
             }
