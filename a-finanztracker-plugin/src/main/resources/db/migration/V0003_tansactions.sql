@@ -4,7 +4,8 @@ CREATE TABLE transactions (
     amount DECIMAL(15, 2) NOT NULL,
     transaction_description TEXT, 
     execution_date DATE NOT NULL, 
-    entry_date DATE NOT NULL, 
+    entry_date DATE NOT NUL DEFAULT CURRENT_DATE, 
+    last_modified_date DATE NOT NULL DEFAULT CURRENT_DATE,
     counterparty counterparty_id NOT NULL REFERENCES counterparty(counterparty_id)ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (transaction_id, bank_account_id)
 );
