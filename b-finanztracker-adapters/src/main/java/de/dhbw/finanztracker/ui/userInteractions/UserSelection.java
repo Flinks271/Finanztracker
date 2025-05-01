@@ -5,7 +5,6 @@ import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class UserSelection {
 

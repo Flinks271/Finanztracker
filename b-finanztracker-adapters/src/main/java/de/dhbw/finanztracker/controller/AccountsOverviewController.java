@@ -6,7 +6,6 @@ import de.dhbw.finanztracker.ui.accountInteractions.CreateNewAccount;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class AccountsOverviewController {
 
