@@ -1,6 +1,7 @@
 package de.dhbw.finanztracker.domain.account;
 
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
+import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
 
 import org.apache.commons.lang3.Validate;
 import java.util.List;
@@ -13,7 +14,9 @@ public class BankAccount implements IAccount {
     private String accountName;
     private String bankName;
     private int counter;
+    private List <IReaccuring> reaccuringTransactions;
     private List<ITransaction> transactionHistory;
+
 
     public BankAccount( double balance, String accountName, String bankName) {
         Validate.notBlank(accountName, "The name of the Account must not be blank");
@@ -26,9 +29,10 @@ public class BankAccount implements IAccount {
         this.bankName = bankName;
         this.counter = 0;
         this.transactionHistory = new ArrayList<ITransaction>();
+        this.reaccuringTransactions = new ArrayList<IReaccuring>();
     }
     
-    public BankAccount(UUID accountId, double balance, String accountName, String bankName, int counter, ArrayList<ITransaction> transactionHistory) {
+    public BankAccount(UUID accountId, double balance, String accountName, String bankName, int counter, ArrayList<ITransaction> transactionHistory, ArrayList<IReaccuring> reaccuringTransactions) {
         Validate.notNull(accountId, "accountId must not be null");
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
@@ -40,6 +44,7 @@ public class BankAccount implements IAccount {
         this.bankName = bankName;
         this.counter = counter;
         this.transactionHistory = transactionHistory;
+        this.reaccuringTransactions = reaccuringTransactions;
     }
 
     @Override
@@ -103,6 +108,21 @@ public class BankAccount implements IAccount {
             balance -= transaction.getAmount();
             return false;
         }
+    }
+
+    @Override
+    public List<IReaccuring> getReaccuringTransactions() {
+        return reaccuringTransactions;
+    }
+
+    @Override
+    public Boolean addReaccuringTransaction(IReaccuring reaccuringTransaction) {
+        return reaccuringTransactions.add(reaccuringTransaction);
+    }
+
+    @Override
+    public Boolean removeReaccuringTransaction(IReaccuring reaccuringTransaction) {
+        return reaccuringTransactions.remove(reaccuringTransaction);
     }
 
     @Override
