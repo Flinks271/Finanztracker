@@ -8,35 +8,26 @@ import de.dhbw.finanztracker.ui.TerminalUtility;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class CreateNewAccount {
 
-    public static void createAccount(IRepository repository, User user,Scanner scanner) {
+    public static void createAccount(IRepository repository, User user) {
         TerminalUtility.clearScreen();
         IAccount account = null;
 
-
+        System.out.println("Please select the Accounttype from the following Types:");
+        System.out.println("1. Bankaccount:");
+        int input = TerminalUtility.readNextInt();
         
-        try {
-            System.out.println("Please select the Accounttype from the following Types:");
-            System.out.println("1. Bankaccount:");
-            int input = scanner.nextInt();
-            scanner.nextLine(); 
-            
-            
-            Map<String, String> inputs = getBasicinputs(scanner);
+        
+        Map<String, String> inputs = getBasicinputs();
 
-            if (input == 1) {
-                account = AccountCreation.createAccount(inputs, repository, user.getUserId());
-                System.out.println("Account " + account.getAccountName() + " has been created successfully.");
-            }            
+        if (input == 1) {
+            account = AccountCreation.createAccount(inputs, repository, user.getUserId());
+            System.out.println("Account " + account.getAccountName() + " has been created successfully.");
+        }            
 
-            Thread.sleep(1000);
-
-        } catch (Exception e) {
-            System.err.println("An error occurred during account creation: " + e.getMessage());
-        }
+        TerminalUtility.pauseForOneSecond();
 
         if (account != null) {
             user.addAccount(account);
@@ -45,31 +36,28 @@ public class CreateNewAccount {
         }
     }
 
-    public static Map<String, String> getBasicinputs(Scanner scanner) {
+    public static Map<String, String> getBasicinputs() {
 
         Map<String, String> inputs = new HashMap<>();
 
-        try {
-            System.out.println("Please enter the account name: ");
-            String inputName = scanner.nextLine();
-            inputs.put("account_name", inputName);
+        System.out.println("Please enter the account name: ");
+        String inputName = TerminalUtility.readLine();
+        inputs.put("account_name", inputName);
 
-            System.out.println("Please enter the bank name: ");
-            String inputBankName = scanner.nextLine();
-            inputs.put("bank_name", inputBankName);
+        System.out.println("Please enter the bank name: ");
+        String inputBankName = TerminalUtility.readLine();
+        inputs.put("bank_name", inputBankName);
 
-            String inputBalance = null;
-            do {
-                System.out.println("Please enter the balance: ");
-                System.out.println("The allowed form for the Balance is Double with 2 digits following the point: ");
-                inputBalance = scanner.nextLine();
+        String inputBalance = null;
+        do {
+            System.out.println("Please enter the balance: ");
+            System.out.println("The allowed form for the Balance is Double with 2 digits following the point: ");
+            inputBalance = TerminalUtility.readLine();
 
-            } while (!inputBalance.matches("^\\d+(\\.|,)?(\\d{1,2})?$"));
-            inputs.put("balance", inputBalance.replace(",", "."));
+        } while (!inputBalance.matches("^\\d+(\\.|,)?(\\d{1,2})?$"));
+        inputs.put("balance", inputBalance.replace(",", "."));
 
-        } catch (Exception e) {
-            System.err.println("An error occurred during account creation: " + e.getMessage());
-        }
+        
         return inputs;
     }
 }

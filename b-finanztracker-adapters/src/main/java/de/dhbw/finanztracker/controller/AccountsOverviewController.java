@@ -10,14 +10,14 @@ import java.util.Scanner;
 
 public class AccountsOverviewController {
 
-    public static void Start(List<IRepository> repositories, User user, Scanner scanner) {
+    public static void Start(List<IRepository> repositories, User user) {
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + user.getUsername());
         IRepository accountRepository = repositories.get(0);
         List<Map<String, Object>> result = accountRepository.getWhere("user_id = '" + user.getUserId() + "'");
 
         if (result.isEmpty()) {
-            CreateNewAccount.createAccount(accountRepository, user,scanner);
+            CreateNewAccount.createAccount(accountRepository, user);
         } else {
             
             

@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class UserSelection {
 
-    public static User selectUser(List<User> users, IRepository repository, Scanner scanner) {
+    public static User selectUser(List<User> users, IRepository repository) {
         TerminalUtility.clearScreen();
         User user = null;
 
@@ -19,27 +19,24 @@ public class UserSelection {
             System.out.println((i + 1) + ". " + users.get(i).getUsername());
         }
 
-        try  {
-            int selectedIndex = scanner.nextInt() - 1;
+        int selectedIndex = TerminalUtility.readNextInt() - 1;
 
-            if (selectedIndex >= 0 && selectedIndex < users.size()) {
-                user = users.get(selectedIndex);
-                String selectedUsername = (String) user.getUsername();
-                System.out.println("User " + selectedUsername + " has been selected successfully.");
+        if (selectedIndex >= 0 && selectedIndex < users.size()) {
+            user = users.get(selectedIndex);
+            String selectedUsername = (String) user.getUsername();
+            System.out.println("User " + selectedUsername + " has been selected successfully.");
 
-                Thread.sleep(1000);
-                
-            } else if(selectedIndex == -1){
-                user = NewUserRegistration.registerNewUser(repository, scanner);
-            }else {
-                System.out.println("Invalid selection. Please try again.");
-                Thread.sleep(1000);
-                selectUser(users, repository, scanner);
-            }
-
-        } catch (Exception e) {
-            System.err.println("An error occurred during user selection: " + e.getMessage());
+            TerminalUtility.pauseForOneSecond(); 
+            
+        } else if(selectedIndex == -1){
+            user = NewUserRegistration.registerNewUser(repository);
+        }else {
+            System.out.println("Invalid selection. Please try again.");
+            TerminalUtility.pauseForOneSecond();
+            selectUser(users, repository);
         }
+
+        
 
         return user;
     }

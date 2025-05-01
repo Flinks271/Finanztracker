@@ -14,7 +14,7 @@ public class StartController {
 
 
     public void Start(List<IRepository> repositories) {
-        Scanner scanner = new Scanner(System.in);
+        
         System.out.println("Starting the application...");
 
         IRepository r = repositories.get(1);
@@ -22,13 +22,13 @@ public class StartController {
         User user = null;
 
         if (result.isEmpty()) {
-            NewUserRegistration.registerNewUser(r,scanner);
+            NewUserRegistration.registerNewUser(r);
         } else {
             List<User> users = TransformUserdata.TransformUsers(result);
-            user = UserSelection.selectUser(users,r,scanner);
+            user = UserSelection.selectUser(users,r);
         }
         
-        AccountsOverviewController.Start(repositories, user, scanner);
+        AccountsOverviewController.Start(repositories, user);
     }
     
 }
