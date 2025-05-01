@@ -14,6 +14,7 @@ import java.util.Map;
 public class AccountsOverviewController {
 
     public static void Start(List<IRepository> repositories, User user, TerminalUtility terminalUtility) {
+
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + user.getUsername());
         IRepository accountRepository = repositories.get(0);
@@ -29,7 +30,34 @@ public class AccountsOverviewController {
 
         System.out.println("Loading accounts for user: " + user.getUsername());
 
-        AccountsOverview.showAccounts(user, repositories, terminalUtility);        
+        
+        Boolean shouldrun = true;
+        do {
+            terminalUtility.clearScreen();
+            AccountsOverview.showAccounts(user, repositories, terminalUtility);        
+
+            String whatNext = AccountsOverview.inputCommands(terminalUtility, user.getAccounts());
+
+            if (whatNext.matches("\\d+")) { 
+                int index = Integer.parseInt(whatNext);
+                AccountOverviewController.Start(repositories, user.getAccount(index), terminalUtility);
+            } else {
+                switch (whatNext) {
+                    case "create":
+                    case "c":
+                        CreateNewAccount.createAccount(accountRepository, user, terminalUtility);
+                        break;
+            
+                    case "sign out":
+                    case "s":
+                        System.out.println("Signing out...");
+                        shouldrun = false;
+                        break;
+                }
+            }
+        } while (shouldrun == true);
+
+        
         
     }
     

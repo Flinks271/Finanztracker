@@ -51,9 +51,12 @@ public class User {
         return accounts; 
     }
 
+    public IAccount getAccount(int index){
+        return accounts.get(index);
+    }
+
     public void setAccounts(List<IAccount> accounts) {
         Validate.notNull(accounts, "Accounts must not be null");
-        
         this.accounts = accounts;
     }
 

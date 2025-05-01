@@ -24,6 +24,7 @@ public class StartController {
         Boolean shouldrun = true;
 
         do {
+            terminalUtility.clearScreen();
             if (result.isEmpty()) {
                 user = NewUserRegistration.registerNewUser(r, terminalUtility);
             } else {
