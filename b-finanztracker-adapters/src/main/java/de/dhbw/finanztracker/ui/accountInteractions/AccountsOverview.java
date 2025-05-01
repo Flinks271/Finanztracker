@@ -83,22 +83,32 @@ public class AccountsOverview {
                 System.out.println("For help with the commands you may use 'h' or 'help'.");
                 return inputCommands(terminalUtility, accounts);
             }
-        } else if ( input.equals("create") || 
-                    input.equals("c")) {
-            command = "c";
-        }  else if ( input.equals("sign out") || 
-                    input.equals("s")) {
-            command = "s";
-        } else if (input.equals("h") || input.equals("help")) { 
-            System.out.println("Available commands:");
-            System.out.println("'" + accounts.size() + "': Select an account by number.");
-            System.out.println("'c' or 'create': Create a new Account.");
-            System.out.println("'d' or 'delete': Delete an excisting Account.");
-            System.out.println("'s' or 'sign out': Sign your current user out and return to user selection.");
         } else {
-            System.out.println("Invalid input. Please try again.");
-            System.out.println("For help with the commands you may use 'h' or 'help'.");
-            return inputCommands(terminalUtility, accounts);
+            switch (input) {
+                case "create":
+                case "c":
+                    command = "c";
+                    break;
+        
+                case "sign out":
+                case "s":
+                    command = "s";
+                    break;
+        
+                case "h":
+                case "help":
+                    System.out.println("Available commands:");
+                    System.out.println("'" + accounts.size() + "': Select an account by number.");
+                    System.out.println("'c' or 'create': Create a new Account.");
+                    System.out.println("'d' or 'delete': Delete an existing Account.");
+                    System.out.println("'s' or 'sign out': Sign your current user out and return to user selection.");
+                    break;
+        
+                default:
+                    System.out.println("Invalid input. Please try again.");
+                    System.out.println("For help with the commands you may use 'h' or 'help'.");
+                    return inputCommands(terminalUtility, accounts);
+            }
         }
 
         return command;
