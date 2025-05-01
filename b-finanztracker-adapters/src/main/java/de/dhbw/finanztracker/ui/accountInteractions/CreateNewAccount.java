@@ -17,17 +17,17 @@ public class CreateNewAccount {
 
         System.out.println("Please select the Accounttype from the following Types:");
         System.out.println("1. Bankaccount:");
-        int input = TerminalUtility.readNextInt();
+        int input = terminalUtility.readNextInt();
         
         
-        Map<String, String> inputs = getBasicinputs();
+        Map<String, String> inputs = getBasicinputs(terminalUtility);
 
         if (input == 1) {
             account = AccountCreation.createAccount(inputs, repository, user.getUserId());
             System.out.println("Account " + account.getAccountName() + " has been created successfully.");
         }            
 
-        TerminalUtility.pauseForOneSecond();
+        terminalUtility.pauseForOneSecond();
 
         if (account != null) {
             user.addAccount(account);
@@ -36,23 +36,23 @@ public class CreateNewAccount {
         }
     }
 
-    public static Map<String, String> getBasicinputs() {
+    public static Map<String, String> getBasicinputs(TerminalUtility terminalUtility) {
 
         Map<String, String> inputs = new HashMap<>();
 
         System.out.println("Please enter the account name: ");
-        String inputName = TerminalUtility.readLine();
+        String inputName = terminalUtility.readLine();
         inputs.put("account_name", inputName);
 
         System.out.println("Please enter the bank name: ");
-        String inputBankName = TerminalUtility.readLine();
+        String inputBankName = terminalUtility.readLine();
         inputs.put("bank_name", inputBankName);
 
         String inputBalance = null;
         do {
             System.out.println("Please enter the balance: ");
             System.out.println("The allowed form for the Balance is Double with 2 digits following the point: ");
-            inputBalance = TerminalUtility.readLine();
+            inputBalance = terminalUtility.readLine();
 
         } while (!inputBalance.matches("^\\d+(\\.|,)?(\\d{1,2})?$"));
         inputs.put("balance", inputBalance.replace(",", "."));

@@ -18,20 +18,20 @@ public class UserSelection {
             System.out.println((i + 1) + ". " + users.get(i).getUsername());
         }
 
-        int selectedIndex = TerminalUtility.readNextInt() - 1;
+        int selectedIndex = terminalUtility.readNextInt() - 1;
 
         if (selectedIndex >= 0 && selectedIndex < users.size()) {
             user = users.get(selectedIndex);
             String selectedUsername = (String) user.getUsername();
             System.out.println("User " + selectedUsername + " has been selected successfully.");
 
-            TerminalUtility.pauseForOneSecond(); 
+            terminalUtility.pauseForOneSecond(); 
             
         } else if(selectedIndex == -1){
             user = NewUserRegistration.registerNewUser(repository, terminalUtility);
         }else {
             System.out.println("Invalid selection. Please try again.");
-            TerminalUtility.pauseForOneSecond();
+            terminalUtility.pauseForOneSecond();
             selectUser(users, repository, terminalUtility);
         }
 

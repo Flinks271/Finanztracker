@@ -15,7 +15,7 @@ public class TerminalUtility {
         System.out.flush();  
     }
 
-    public static int readNextInt(){
+    public int readNextInt(){
        int readInt = -1; 
         try  {
             readInt = scanner.nextInt();
@@ -27,7 +27,7 @@ public class TerminalUtility {
         return readInt;
     }
 
-    public static String readLine(){
+    public String readLine(){
         String readLine = null;
         try {
             readLine = scanner.nextLine();
@@ -38,7 +38,7 @@ public class TerminalUtility {
         return readLine;
     }
 
-    public static void pauseForOneSecond() {
+    public void pauseForOneSecond() {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

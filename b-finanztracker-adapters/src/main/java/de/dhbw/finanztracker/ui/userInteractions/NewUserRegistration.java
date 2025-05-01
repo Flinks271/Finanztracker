@@ -12,11 +12,11 @@ public class NewUserRegistration {
         terminalUtility.clearScreen();
         System.out.println("Please enter a username: ");
 
-        String inputUsername = TerminalUtility.readLine();
+        String inputUsername = terminalUtility.readLine();
         user = UserRegistration.registerUser(inputUsername, repository);
         System.out.println("User " + inputUsername + " has been registered successfully.");
         
-        TerminalUtility.pauseForOneSecond();   
+        terminalUtility.pauseForOneSecond();   
         
         return user;
     }
