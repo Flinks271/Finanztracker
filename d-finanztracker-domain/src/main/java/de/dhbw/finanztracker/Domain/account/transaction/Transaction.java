@@ -2,41 +2,43 @@ package de.dhbw.finanztracker.domain.account.transaction;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public class Transaction implements ITransaction {
     private final int transactionId;
-    private final UUID bankAccountId;
     private double amount;
     private String description;
-    private LocalDate date;
+    private LocalDate execution_date;
+    private LocalDate entry_date;
+    private LocalDate last_modified_date;
     private List<String> categories;
     private String counterparty;
-    private final boolean isRecurring;
+    private boolean isPersisted;
   
-    public Transaction(int transactionID, UUID bankAccountId, double amount, String description, LocalDate date,
-        List<String> categories, String counterparty, boolean isRecurring) {
-        this.transactionId = transactionID;
-        this.bankAccountId = bankAccountId;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.categories = categories;
-        this.counterparty = counterparty;
-        this.isRecurring = true;       
-    }
+    public Transaction(int transactionID, double amount, String description, LocalDate executionDate,
+        LocalDate entryDate, LocalDate lastModifiedDate, List<String> categories, String counterparty, boolean isPersisted) {
+    this.transactionId = transactionID;
+    this.amount = amount;
+    this.description = description;
+    this.execution_date = executionDate;
+    this.entry_date = entryDate;
+    this.last_modified_date = lastModifiedDate;
+    this.categories = categories;
+    this.counterparty = counterparty;
+    this.isPersisted = isPersisted;
+}
 
-    public Transaction(int transactionID, UUID bankAccountId, double amount, String description, LocalDate date,
+public Transaction(int transactionID, double amount, String description, LocalDate executionDate,
         List<String> categories, String counterparty) {
-        this.transactionId = transactionID;
-        this.bankAccountId = bankAccountId;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.categories = categories;
-        this.counterparty = counterparty;
-        this.isRecurring = false;
-    }
+    this.transactionId = transactionID;
+    this.amount = amount;
+    this.description = description;
+    this.execution_date = executionDate;
+    this.entry_date = LocalDate.now();
+    this.last_modified_date = LocalDate.now();
+    this.categories = categories;
+    this.counterparty = counterparty;
+    this.isPersisted = false;
+}
 
 
     @Override
@@ -44,10 +46,6 @@ public class Transaction implements ITransaction {
         return transactionId;
     }
 
-    @Override
-    public UUID getBankAccountId() {
-        return bankAccountId;
-    }
 
     @Override
     public double getAmount() {
@@ -60,13 +58,13 @@ public class Transaction implements ITransaction {
     }
 
     @Override
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getExecutionDate() {
+        return execution_date;
     }
 
     @Override
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setExecutionDate(LocalDate execution_date) {
+        this.execution_date = execution_date;
     }
 
     @Override
@@ -80,11 +78,6 @@ public class Transaction implements ITransaction {
         return counterparty;
     }
 
-
-    @Override
-    public boolean isRecurring() {
-        return isRecurring;
-    }
    
     @Override
     public void setAmount(double amount) {
@@ -117,6 +110,31 @@ public class Transaction implements ITransaction {
     public void removeCategory(String category) {
         categories.remove(category);
     }
+
+    @Override
+    public boolean isPersisted() {
+        return isPersisted;
+    }
+
+    @Override
+    public void setPersisted(boolean isPersisted) {
+        this.isPersisted = isPersisted;
+    }
+
+	@Override
+	public LocalDate getEntryDate() {
+		return entry_date;
+	}
+
+	@Override
+	public LocalDate getLastModifiedDate() {
+		return last_modified_date;
+	}
+
+	@Override
+	public void setLastModifiedDate(LocalDate lastModifiedDate) {
+		this.last_modified_date = lastModifiedDate;
+	}
 
     
 }
