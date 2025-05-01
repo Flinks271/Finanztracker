@@ -100,9 +100,8 @@ public class AccountsOverview {
                     System.out.println("Available commands:");
                     System.out.println("'" + accounts.size() + "': Select an account by number.");
                     System.out.println("'c' or 'create': Create a new Account.");
-                    System.out.println("'d' or 'delete': Delete an existing Account.");
                     System.out.println("'s' or 'sign out': Sign your current user out and return to user selection.");
-                    break;
+                    return inputCommands(terminalUtility, accounts);
         
                 default:
                     System.out.println("Invalid input. Please try again.");
