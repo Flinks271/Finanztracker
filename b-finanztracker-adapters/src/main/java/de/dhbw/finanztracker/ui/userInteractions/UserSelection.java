@@ -8,8 +8,8 @@ import java.util.List;
 
 public class UserSelection {
 
-    public static User selectUser(List<User> users, IRepository repository) {
-        TerminalUtility.clearScreen();
+    public static User selectUser(List<User> users, IRepository repository, TerminalUtility terminalUtility) {
+        terminalUtility.clearScreen();
         User user = null;
 
         System.out.println("Please select a user: ");
@@ -28,11 +28,11 @@ public class UserSelection {
             TerminalUtility.pauseForOneSecond(); 
             
         } else if(selectedIndex == -1){
-            user = NewUserRegistration.registerNewUser(repository);
+            user = NewUserRegistration.registerNewUser(repository, terminalUtility);
         }else {
             System.out.println("Invalid selection. Please try again.");
             TerminalUtility.pauseForOneSecond();
-            selectUser(users, repository);
+            selectUser(users, repository, terminalUtility);
         }
 
         

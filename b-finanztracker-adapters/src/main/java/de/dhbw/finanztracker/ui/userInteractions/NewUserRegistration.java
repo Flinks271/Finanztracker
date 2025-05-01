@@ -7,9 +7,9 @@ import de.dhbw.finanztracker.ui.TerminalUtility;
 
 public class NewUserRegistration {
     
-    public static User registerNewUser(IRepository repository) {
+    public static User registerNewUser(IRepository repository, TerminalUtility terminalUtility) {
         User user = null;
-        TerminalUtility.clearScreen();
+        terminalUtility.clearScreen();
         System.out.println("Please enter a username: ");
 
         String inputUsername = TerminalUtility.readLine();

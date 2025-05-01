@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class CreateNewAccount {
 
-    public static void createAccount(IRepository repository, User user) {
-        TerminalUtility.clearScreen();
+    public static void createAccount(IRepository repository, User user, TerminalUtility terminalUtility) {
+        terminalUtility.clearScreen();
         IAccount account = null;
 
         System.out.println("Please select the Accounttype from the following Types:");

@@ -3,6 +3,7 @@ package de.dhbw.finanztracker.controller;
 import de.dhbw.finanztracker.TransformData.TransformUserdata;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.user.User;
+import de.dhbw.finanztracker.ui.TerminalUtility;
 import de.dhbw.finanztracker.ui.userInteractions.NewUserRegistration;
 import de.dhbw.finanztracker.ui.userInteractions.UserSelection;
 
@@ -13,6 +14,7 @@ public class StartController {
 
 
     public void Start(List<IRepository> repositories) {
+        TerminalUtility terminalUtility = new TerminalUtility();
         
         System.out.println("Starting the application...");
 
@@ -21,13 +23,13 @@ public class StartController {
         User user = null;
 
         if (result.isEmpty()) {
-            NewUserRegistration.registerNewUser(r);
+            user = NewUserRegistration.registerNewUser(r, terminalUtility);
         } else {
             List<User> users = TransformUserdata.TransformUsers(result);
-            user = UserSelection.selectUser(users,r);
+            user = UserSelection.selectUser(users,r, terminalUtility);
         }
         
-        AccountsOverviewController.Start(repositories, user);
+        AccountsOverviewController.Start(repositories, user, terminalUtility);
     }
     
 }
