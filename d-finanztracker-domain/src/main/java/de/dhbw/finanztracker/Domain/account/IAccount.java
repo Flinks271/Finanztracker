@@ -15,4 +15,5 @@ public interface IAccount {
     List<ITransaction> getTransactionHistory();
     Boolean addTransaction(ITransaction transaction);
     Boolean removeTransaction(ITransaction transaction);
+    String toTerminalString();
 }

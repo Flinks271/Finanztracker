@@ -105,5 +105,11 @@ public class BankAccount implements IAccount {
         }
     }
 
-    
+    @Override
+    public String toTerminalString() {
+        return  accountName + "|" +
+               bankName + "|" +
+               balance + "€";
+    }
+  
 }
