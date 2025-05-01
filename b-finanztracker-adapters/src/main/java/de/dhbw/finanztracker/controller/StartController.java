@@ -21,15 +21,24 @@ public class StartController {
         IRepository r = repositories.get(1);
         List<Map<String, Object>> result = r.getAll();
         User user = null;
+        Boolean shouldrun = true;
 
-        if (result.isEmpty()) {
-            user = NewUserRegistration.registerNewUser(r, terminalUtility);
-        } else {
-            List<User> users = TransformUserdata.TransformUsers(result);
-            user = UserSelection.selectUser(users,r, terminalUtility);
-        }
+        do {
+            if (result.isEmpty()) {
+                user = NewUserRegistration.registerNewUser(r, terminalUtility);
+            } else {
+                List<User> users = TransformUserdata.TransformUsers(result);
+                user = UserSelection.selectUser(users,r, terminalUtility);
+            }
+            
+            if (user != null) {
+                AccountsOverviewController.Start(repositories, user, terminalUtility);
+            } else {
+                shouldrun = false;   
+            }
+
+        }while(shouldrun == true);
         
-        AccountsOverviewController.Start(repositories, user, terminalUtility);
     }
     
 }
