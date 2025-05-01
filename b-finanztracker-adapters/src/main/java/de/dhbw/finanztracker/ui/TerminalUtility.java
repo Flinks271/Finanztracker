@@ -10,7 +10,7 @@ public class TerminalUtility {
         
     }
 
-    public static void clearScreen() {  
+    public void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
@@ -23,7 +23,6 @@ public class TerminalUtility {
         }
         catch (Exception e) {
             System.out.println("Invalid input. Please enter a valid integer.");
-            return readNextInt(); 
         }
         return readInt;
     }
@@ -35,7 +34,6 @@ public class TerminalUtility {
         }
         catch (Exception e) {
             System.out.println("Invalid input. Please enter a valid String.");
-            //return readLine(); 
         }
         return readLine;
     }

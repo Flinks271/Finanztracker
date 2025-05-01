@@ -3,6 +3,7 @@ package de.dhbw.finanztracker.TransformData;
 import de.dhbw.finanztracker.domain.account.BankAccount;
 import de.dhbw.finanztracker.domain.account.IAccount;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +25,11 @@ public class TransformAccountdata {
     public static IAccount TransformAccount(Map<String, Object> map){
         IAccount account = null;
 
-        UUID accountId = UUID.fromString((String) map.get("accountId"));
-        double balance = (double) map.get("balance");
+        UUID accountId = (UUID) map.get("account_id");
+        double balance = ((BigDecimal)map.get("balance")).doubleValue();
         Integer counter = (Integer) map.get("counter");
-        String accountName = (String) map.get("accountName");
-        String bankName = (String) map.get("bankName");
+        String accountName = (String) map.get("account_name");
+        String bankName = (String) map.get("bank_name");
 
         account = new BankAccount(accountId, balance, accountName, bankName, counter, new ArrayList<>());
        
