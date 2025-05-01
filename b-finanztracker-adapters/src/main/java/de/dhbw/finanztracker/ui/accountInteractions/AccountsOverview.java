@@ -23,11 +23,14 @@ public class AccountsOverview {
         }
         
         showAccountsTable(accounts);
+
     }
 
 
 
     public static void showAccountsTable(List<IAccount> accounts) {
+        
+        System.out.println("Accounts Overview.");
   
         int maxIndexWidth = String.valueOf(accounts.size()).length();
         maxIndexWidth = Math.max(maxIndexWidth, 2); 
@@ -62,6 +65,43 @@ public class AccountsOverview {
     
         System.out.printf("%-" + (maxIndexWidth + maxNameWidth + maxBankNameWidth + 6) + "s | %-" + maxBalanceWidth + ".2f € %n",
             "Total Balance",  totalBalance.doubleValue());
+    }
+
+    public static String inputCommands(TerminalUtility terminalUtility, List<IAccount> accounts) {
+        System.out.println("Please select the Account you want to edit or enter other commands:");
+        String command = null;
+
+        String input = terminalUtility.readLine();
+
+        if (input.matches("\\d+")) { 
+            command = input;
+            int InputInt = Integer.parseInt(command) - 1;
+            if (InputInt >=0 && InputInt < accounts.size()) {
+                System.out.println("You have selected account: " + accounts.get(InputInt).getAccountName());
+            } else {
+                System.out.println("Invalid account number. Please try again.");
+                System.out.println("For help with the commands you may use 'h' or 'help'.");
+                return inputCommands(terminalUtility, accounts);
+            }
+        } else if ( input.equals("create") || 
+                    input.equals("c")) {
+            command = "c";
+        }  else if ( input.equals("sign out") || 
+                    input.equals("s")) {
+            command = "s";
+        } else if (input.equals("h") || input.equals("help")) { 
+            System.out.println("Available commands:");
+            System.out.println("'" + accounts.size() + "': Select an account by number.");
+            System.out.println("'c' or 'create': Create a new Account.");
+            System.out.println("'d' or 'delete': Delete an excisting Account.");
+            System.out.println("'s' or 'sign out': Sign your current user out and return to user selection.");
+        } else {
+            System.out.println("Invalid input. Please try again.");
+            System.out.println("For help with the commands you may use 'h' or 'help'.");
+            return inputCommands(terminalUtility, accounts);
+        }
+
+        return command;
     }
     
 }
