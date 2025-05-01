@@ -31,7 +31,7 @@ public class TransformAccountdata {
         String accountName = (String) map.get("account_name");
         String bankName = (String) map.get("bank_name");
 
-        account = new BankAccount(accountId, balance, accountName, bankName, counter, new ArrayList<>());
+        account = new BankAccount(accountId, balance, accountName, bankName, counter, new ArrayList<>(), new ArrayList<>());
        
         return account;
     }
