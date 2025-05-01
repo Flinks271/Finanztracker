@@ -1,23 +1,28 @@
-package de.dhbw.finanztracker.persistance.jdbc.account;
+package de.dhbw.finanztracker.persistance.jdbc.transactions;
+
 
 import de.dhbw.finanztracker.domain.IRepository;
+import io.github.cdimascio.dotenv.Dotenv;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-import io.github.cdimascio.dotenv.Dotenv;
 
-public class AccountRepository implements IRepository {
+public class ReaccuringRepository implements IRepository {
     private final String dbUrl ;
     private final String dbUser ;
     private final String dbPassword ;
 
 
-    public AccountRepository() {
-        // Load environment variables from .env file
+    public ReaccuringRepository() {
         Dotenv dotenv = Dotenv.load();
         this.dbUrl = dotenv.get("POSTGRES_URL");
         this.dbUser = dotenv.get("POSTGRES_USER");
@@ -28,7 +33,7 @@ public class AccountRepository implements IRepository {
     @Override
     public List<Map<String, Object>> getAll() {
         List<Map<String, Object>> rows = new ArrayList<>();
-        String query = "SELECT * FROM accounts";
+        String query = "SELECT * FROM reaccuring";
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             Statement statement = connection.createStatement()) {
@@ -53,7 +58,7 @@ public class AccountRepository implements IRepository {
     @Override
     public List<Map<String, Object>> getWhere(String condition) {
         List<Map<String, Object>> rows = new ArrayList<>();
-        String query = "SELECT * FROM accounts WHERE {condition}";
+        String query = "SELECT * FROM reaccuring WHERE {condition}";
         query = query.replace("{condition}", condition);
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
@@ -88,15 +93,26 @@ public class AccountRepository implements IRepository {
     }
 
     @Override
-    public void deleteById(Object accountId) {
-        if (!(accountId instanceof UUID)) {
-            throw new IllegalArgumentException("Account ID must be of type UUID");
+    public void deleteById(Object compositeKey) {
+        if (!(compositeKey instanceof Map<?, ?>)) {
+            throw new IllegalArgumentException("Expected a Map with keys 'reaccuringID' and 'bankAccountID'");
         }
-        String query = "DELETE FROM accounts WHERE account_id = ?";
+    
+        @SuppressWarnings("unchecked")
+        Map<String, Object> keyMap = (Map<String, Object>) compositeKey;
+        Object reaccuringID = keyMap.get("reaccuringID");
+        Object bankAccountID = keyMap.get("bankAccountID");
+    
+        if (reaccuringID == null || bankAccountID == null) {
+            throw new IllegalArgumentException("Both 'reaccuringID' and 'bankAccountID' must be provided");
+        }
+    
+        String query = "DELETE FROM reaccuring WHERE reaccuring_id = ? AND bank_account_id = ?";
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, accountId.toString());
+    
+            preparedStatement.setString(1, reaccuringID.toString());
+            preparedStatement.setString(2, bankAccountID.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
