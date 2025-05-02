@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.lang3.Validate;
-
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.Transaction;
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.Counterparty;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 
 public class TransformTransactiondata {
@@ -38,9 +37,10 @@ public class TransformTransactiondata {
         LocalDate entryDateString = (LocalDate)map.get("entry_date");
         LocalDate lastModifiedDateString = (LocalDate)map.get("last_modified_date");
         boolean isPersisted = true;
+        ICounterparty counterparty = new Counterparty((UUID)map.get("counterparty_id"), "", "");
 
 
-        transaction = new Transaction(transactionID, amount, description, executionDateString, entryDateString, lastModifiedDateString, categories, null,  isPersisted);
+        transaction = new Transaction(transactionID, amount, description, executionDateString, entryDateString, lastModifiedDateString, categories, counterparty,  isPersisted);
        
         return transaction;
     }

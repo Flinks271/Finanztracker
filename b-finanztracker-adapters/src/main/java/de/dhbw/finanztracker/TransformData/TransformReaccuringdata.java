@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.lang3.Validate;
-
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.Counterparty;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.ReaccuringOneDayAMonth;
@@ -38,7 +37,7 @@ public class TransformReaccuringdata {
         LocalDate endDate = (LocalDate) map.get("reaccuring_end_date");
         int intervalInDays = (int) map.get("interval_in_days");
         boolean active = endDate.isAfter(lastModifiedDate); 
-        ICounterparty counterparty = null;
+        ICounterparty counterparty = new Counterparty((UUID)map.get("counterparty_id"), "", "");
 
         return new ReaccuringOneDayAMonth(
             reaccuringID,
