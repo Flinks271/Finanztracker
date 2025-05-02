@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
+
 public interface IReaccuring {
 
     UUID getReaccuringId();
@@ -16,6 +18,8 @@ public interface IReaccuring {
     LocalDate getEndDate();
     int getIntervalInDays();
     boolean isActive();
+    ICounterparty getCounterparty();
+    void setCounterparty(ICounterparty counterparty);
     void setActive(boolean active);
     void setName(String name);
     void setDescription(String description);

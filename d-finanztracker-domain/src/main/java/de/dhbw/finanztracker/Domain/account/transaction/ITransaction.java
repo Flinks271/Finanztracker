@@ -4,20 +4,22 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
+
 public interface ITransaction {
     UUID getTransactionId();
     double getAmount();
     String getDescription();
     LocalDate getExecutionDate();
     List<String> getCategories();
-    String getCounterparty();
+    ICounterparty getCounterparty();
     boolean isPersisted();
     LocalDate getEntryDate();
     LocalDate getLastModifiedDate();
     void setLastModifiedDate(LocalDate lastModifiedDate);
     void setPersisted(boolean isPersisted);
     void setCategories(List<String> categorys);
-    void setCounterparty(String counterparty);
+    void setCounterparty(ICounterparty counterparty);
     void setAmount(double amount);
     void setDescription(String description);
     void setExecutionDate(LocalDate date);

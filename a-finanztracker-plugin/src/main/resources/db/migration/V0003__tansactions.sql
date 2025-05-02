@@ -31,7 +31,8 @@ CREATE TABLE reaccuring (
     reaccuring_start_date DATE NOT NULL,
     reaccuring_last_modified_date DATE NOT NULL DEFAULT CURRENT_DATE,
     reaccuring_end_date DATE,
-    interval_in_days INT NOT NULL DEFAULT 28
+    interval_in_days INT NOT NULL DEFAULT 28,
+    counterparty_id UUID NOT NULL REFERENCES counterparty(counterparty_id)ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE relation_reaccuring_category (
     reaccuring_id SERIAL NOT NULL REFERENCES reaccuring(reaccuring_id) ON DELETE CASCADE ON UPDATE CASCADE,

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
+
 public class ReaccuringOneDayAMonth implements IReaccuring {
 
 
@@ -17,10 +19,11 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
     private LocalDate endDate;
     private int intervalInDays; 
     private boolean active;
+    private ICounterparty counterparty;
 
     
     public ReaccuringOneDayAMonth(UUID reacuringID, String name, String description, List<String> categories, double amount,
-                                  LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active) {
+                                  LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active, ICounterparty counterparty) {
         this.reacuringID = reacuringID;
         this.name = name;
         this.description = description;
@@ -31,10 +34,12 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
         this.endDate = endDate;
         this.intervalInDays = intervalInDays; 
         this.active = active;
+        this.counterparty = counterparty;
     }
 
     public ReaccuringOneDayAMonth( String name, String description, List<String> categories, double amount,
-                                  LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active) {
+                                  LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active, ICounterparty counterparty) {
+        this.counterparty = counterparty;
         this.reacuringID = UUID.randomUUID();
         this.name = name;
         this.description = description;
@@ -90,6 +95,16 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
     @Override
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public ICounterparty getCounterparty() {
+        return counterparty;
+    }
+
+    @Override
+    public void setCounterparty(ICounterparty counterparty) {
+        this.counterparty = counterparty;
     }
 
     @Override

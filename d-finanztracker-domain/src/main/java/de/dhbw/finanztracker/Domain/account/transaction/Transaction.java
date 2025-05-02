@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
+
 public class Transaction implements ITransaction {
     private final UUID transactionId;
     private double amount;
@@ -12,11 +14,11 @@ public class Transaction implements ITransaction {
     private LocalDate entry_date;
     private LocalDate last_modified_date;
     private List<String> categories;
-    private String counterparty;
+    private ICounterparty counterparty;
     private boolean isPersisted;
   
     public Transaction(UUID transactionID, double amount, String description, LocalDate executionDate,
-        LocalDate entryDate, LocalDate lastModifiedDate, List<String> categories, String counterparty, boolean isPersisted) {
+        LocalDate entryDate, LocalDate lastModifiedDate, List<String> categories, ICounterparty counterparty, boolean isPersisted) {
     this.transactionId = transactionID;
     this.amount = amount;
     this.description = description;
@@ -29,7 +31,7 @@ public class Transaction implements ITransaction {
 }
 
 public Transaction(UUID transactionID, double amount, String description, LocalDate executionDate,
-        List<String> categories, String counterparty) {
+        List<String> categories, ICounterparty counterparty) {
     this.transactionId = transactionID;
     this.amount = amount;
     this.description = description;
@@ -75,7 +77,7 @@ public Transaction(UUID transactionID, double amount, String description, LocalD
 
 
     @Override
-    public String getCounterparty() {
+    public ICounterparty getCounterparty() {
         return counterparty;
     }
 
@@ -91,7 +93,7 @@ public Transaction(UUID transactionID, double amount, String description, LocalD
     }
 
     @Override
-    public void setCounterparty(String counterparty) {
+    public void setCounterparty(ICounterparty counterparty) {
         this.counterparty = counterparty;
     }
     
