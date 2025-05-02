@@ -109,5 +109,100 @@ public class SingularAccountOverview {
             } 
         }       
     }
+
+    public static String inputCommands(TerminalUtility terminalUtility){
+        System.out.println("Please select the Action you wish to do:");
+        String command = null;
+
+        String input = terminalUtility.readLine();
+        char firstChar = input.isEmpty() ? '\0' : input.trim().charAt(0);
+        
+        switch (firstChar) {
+            case 'c':
+                input = input.substring(1).trim();
+                char next = input.isEmpty() ? '\0' : input.charAt(0);
+                switch (next) {
+                    case 'r':
+                        command = "cr";
+                        break;
+                    case 't':
+                        command = "ct";
+                        break;               
+                    default:
+                        System.out.println("Invalid input. Please try again.");
+                        System.out.println("For help with the commands you may use 'h' or 'help'.");
+                        return inputCommands(terminalUtility);
+                }
+                break;
+            
+            case 'd':
+                input = input.substring(1).trim();
+                next = input.isEmpty() ? '\0' : input.charAt(0);
+                switch (next) {
+                    case 'r':
+                        command = "cr";
+                        break;
+                    case 't':
+                        command = "ct";
+                        break;               
+                    default:
+                        System.out.println("Invalid input. Please try again.");
+                        System.out.println("For help with the commands you may use 'h' or 'help'.");
+                        return inputCommands(terminalUtility);
+                }
+                break;
+            case 'r':
+                String whatNext = input.substring(1).trim();
+                if (whatNext.matches("\\d+")) { 
+                    command = "r" + (Integer.parseInt(whatNext) - 1);
+                } else {
+                    System.out.println("Invalid input. Please try again.");
+                    System.out.println("For help with the commands you may use 'h' or 'help'.");
+                    return inputCommands(terminalUtility);
+                }
+                break;
+            case 't':
+                String whatNext2 = input.substring(1).trim();
+                if (whatNext2.matches("\\d+")) { 
+                    command = "t" + (Integer.parseInt(whatNext2) - 1);
+                } else {
+                    System.out.println("Invalid input. Please try again.");
+                    System.out.println("For help with the commands you may use 'h' or 'help'.");
+                    return inputCommands(terminalUtility);
+                }
+                break;
+            case 'e':
+                command = "e";
+                break;
+            case 'u':
+                command = "u";
+                break;
+            case 'y':
+                command = "y";
+                break;
+    
+            case 'h':
+                System.out.println("Available commands:");
+                System.out.println("c - create a new transaction or reaccuring transaction");
+                System.out.println("c - must be followed by the first letter of the type you want to create: r for reaccuring transaction or t for transaction");
+                System.out.println("r - select a reaccuring transaction by number to edit it");
+                System.out.println("t - select a transaction by number to edit it");
+                System.out.println("d - delete a transaction or reaccuring transaction");
+                System.out.println("d - must be followed by the first letter of the type you want to delete: r for reaccuring transaction or t for transaction");
+                System.out.println("u - update the account information");
+                System.out.println("y - delete the account");
+                System.out.println("e - exit out of the account overview"); 
+                System.out.println("h - show this help message");               
+                return inputCommands(terminalUtility);
+    
+            default:
+                System.out.println("Invalid input. Please try again.");
+                System.out.println("For help with the commands you may use 'h' or 'help'.");
+                return inputCommands(terminalUtility);
+        }
+        
+
+        return command;
+    }
     
 }

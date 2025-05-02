@@ -9,6 +9,7 @@ import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
 import de.dhbw.finanztracker.ui.TerminalUtility;
+import de.dhbw.finanztracker.ui.accountInteractions.AccountsOverview;
 import de.dhbw.finanztracker.ui.accountInteractions.SingularAccountOverview;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class AccountOverviewController {
             terminalUtility.clearScreen();
             SingularAccountOverview.showAccountdetails(account, repositories, terminalUtility);
             terminalUtility.readLine();
+
+            String whatNext = SingularAccountOverview.inputCommands(terminalUtility);
 
             /* 
             String whatNext = SingularAccountOverview.inputCommands(terminalUtility, user.getAccounts());
