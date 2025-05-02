@@ -84,7 +84,7 @@ public class BankAccount implements IAccount {
 
     @Override
     public void setReaccuring(List<IReaccuring> reaccurings) {
-        this.reaccuringTransactions = reaccuringTransactions;
+        this.reaccuringTransactions = reaccurings;
     }
 
     @Override
