@@ -58,6 +58,17 @@ public class TerminalUtility {
         return hyphenLine.toString();
     }
 
+    public String generateHyphenLineOneSideTop(List<Integer> distance){
+        StringBuilder hyphenLine = new StringBuilder();
+        for (int i = 0; i < distance.size(); i++) {
+            hyphenLine.append("-".repeat(distance.get(i)));
+            if (i != distance.size() - 1) {
+                hyphenLine.append("┴");
+            }
+        }
+        return hyphenLine.toString();
+    }
+
     public String generateHyphenLineTwoSides(List<Integer> distanceTop, List<Integer> distanceBottom){
         StringBuilder hyphenLine = new StringBuilder();
         int maxSize = Math.max(distanceTop.size(), distanceBottom.size());

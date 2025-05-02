@@ -39,7 +39,7 @@ public class AccountsOverviewController {
             String whatNext = AccountsOverview.inputCommands(terminalUtility, user.getAccounts());
 
             if (whatNext.matches("\\d+")) { 
-                int index = Integer.parseInt(whatNext);
+                int index = Integer.parseInt(whatNext) - 1;
                 AccountOverviewController.Start(repositories, user.getAccount(index), terminalUtility);
             } else {
                 switch (whatNext) {
