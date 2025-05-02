@@ -23,13 +23,13 @@ public class AccountsOverview {
             return;
         }
         
-        showAccountsTable(accounts);
+        showAccountsTable(accounts, terminalUtility);
 
     }
 
 
 
-    public static void showAccountsTable(List<IAccount> accounts) {
+    public static void showAccountsTable(List<IAccount> accounts, TerminalUtility terminalUtility) {
         
         System.out.println("Accounts Overview.");
   
@@ -55,7 +55,8 @@ public class AccountsOverview {
     
         System.out.printf("%-" + maxIndexWidth + "s | %-" + maxNameWidth + "s | %-" + maxBankNameWidth + "s | %-" + maxBalanceWidth + "s %n",
                 "Nr", "Account Name","Bank Name", "Balance");
-        System.out.println("-".repeat(maxIndexWidth) + "-+-" + "-".repeat(maxNameWidth) + "-+-" + "-".repeat(maxBankNameWidth) + "-+---" + "-".repeat(maxBalanceWidth));
+        List<Integer> distance = List.of(maxIndexWidth + 1, maxNameWidth + 2, maxBankNameWidth + 2, maxBalanceWidth + 3);
+        System.out.println(terminalUtility.generateHyphenLineOneSide(distance));
     
         for (int i = 0; i < accounts.size(); i++) {
             IAccount acc = accounts.get(i);
