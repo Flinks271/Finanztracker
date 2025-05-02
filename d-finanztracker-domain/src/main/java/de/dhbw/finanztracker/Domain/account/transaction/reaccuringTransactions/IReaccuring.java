@@ -19,6 +19,7 @@ public interface IReaccuring {
     int getIntervalInDays();
     boolean isActive();
     ICounterparty getCounterparty();
+    String getCategoriesString();
     void setCounterparty(ICounterparty counterparty);
     void setActive(boolean active);
     void setName(String name);

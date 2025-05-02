@@ -16,6 +16,7 @@ public interface ITransaction {
     boolean isPersisted();
     LocalDate getEntryDate();
     LocalDate getLastModifiedDate();
+    String getCategoriesString();
     void setLastModifiedDate(LocalDate lastModifiedDate);
     void setPersisted(boolean isPersisted);
     void setCategories(List<String> categorys);

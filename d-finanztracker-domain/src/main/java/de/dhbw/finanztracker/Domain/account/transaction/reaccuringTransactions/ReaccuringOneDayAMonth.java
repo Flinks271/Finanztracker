@@ -8,7 +8,6 @@ import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterpar
 
 public class ReaccuringOneDayAMonth implements IReaccuring {
 
-
     private UUID reacuringID;
     private String name;
     private String description;
@@ -115,6 +114,11 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
     @Override
     public LocalDate getStartDate() {
         return startDate;
+    }
+
+    @Override
+    public String getCategoriesString() {
+        return String.join(", ", categories);
     }
 
     @Override

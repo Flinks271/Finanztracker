@@ -81,6 +81,11 @@ public Transaction(UUID transactionID, double amount, String description, LocalD
         return counterparty;
     }
 
+    @Override
+    public String getCategoriesString() {
+        return String.join(", ", categories);
+    }
+
    
     @Override
     public void setAmount(double amount) {
