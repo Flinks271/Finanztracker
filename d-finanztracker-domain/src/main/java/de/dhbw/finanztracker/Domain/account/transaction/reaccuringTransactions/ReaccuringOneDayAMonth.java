@@ -2,9 +2,12 @@ package de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class ReaccuringOneDayAMonth implements IReaccuring {
 
+
+    private UUID reacuringID;
     private String name;
     private String description;
     private List<String> categories;
@@ -16,8 +19,9 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
     private boolean active;
 
     
-    public ReaccuringOneDayAMonth(String name, String description, List<String> categories, double amount,
+    public ReaccuringOneDayAMonth(UUID reacuringID, String name, String description, List<String> categories, double amount,
                                   LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active) {
+        this.reacuringID = reacuringID;
         this.name = name;
         this.description = description;
         this.categories = categories;
@@ -27,6 +31,25 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
         this.endDate = endDate;
         this.intervalInDays = intervalInDays; 
         this.active = active;
+    }
+
+    public ReaccuringOneDayAMonth( String name, String description, List<String> categories, double amount,
+                                  LocalDate startDate,LocalDate lastModifiedDate, LocalDate endDate, int intervalInDays, boolean active) {
+        this.reacuringID = UUID.randomUUID();
+        this.name = name;
+        this.description = description;
+        this.categories = categories;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.endDate = endDate;
+        this.intervalInDays = intervalInDays; 
+        this.active = active;
+    }
+
+    @Override
+    public UUID getReaccuringId() {
+        return reacuringID;
     }
 
     @Override

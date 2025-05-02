@@ -2,9 +2,10 @@ package de.dhbw.finanztracker.domain.account.transaction;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public interface ITransaction {
-    int getTransactionId();
+    UUID getTransactionId();
     double getAmount();
     String getDescription();
     LocalDate getExecutionDate();

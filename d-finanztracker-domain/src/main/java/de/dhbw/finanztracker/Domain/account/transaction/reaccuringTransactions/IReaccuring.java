@@ -2,9 +2,11 @@ package de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public interface IReaccuring {
 
+    UUID getReaccuringId();
     String getName();
     String getDescription();
     List<String> getCategorys();

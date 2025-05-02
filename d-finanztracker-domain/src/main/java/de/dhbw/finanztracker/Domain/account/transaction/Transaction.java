@@ -2,9 +2,10 @@ package de.dhbw.finanztracker.domain.account.transaction;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class Transaction implements ITransaction {
-    private final int transactionId;
+    private final UUID transactionId;
     private double amount;
     private String description;
     private LocalDate execution_date;
@@ -14,7 +15,7 @@ public class Transaction implements ITransaction {
     private String counterparty;
     private boolean isPersisted;
   
-    public Transaction(int transactionID, double amount, String description, LocalDate executionDate,
+    public Transaction(UUID transactionID, double amount, String description, LocalDate executionDate,
         LocalDate entryDate, LocalDate lastModifiedDate, List<String> categories, String counterparty, boolean isPersisted) {
     this.transactionId = transactionID;
     this.amount = amount;
@@ -27,7 +28,7 @@ public class Transaction implements ITransaction {
     this.isPersisted = isPersisted;
 }
 
-public Transaction(int transactionID, double amount, String description, LocalDate executionDate,
+public Transaction(UUID transactionID, double amount, String description, LocalDate executionDate,
         List<String> categories, String counterparty) {
     this.transactionId = transactionID;
     this.amount = amount;
@@ -42,7 +43,7 @@ public Transaction(int transactionID, double amount, String description, LocalDa
 
 
     @Override
-    public int getTransactionId() {
+    public UUID getTransactionId() {
         return transactionId;
     }
 
