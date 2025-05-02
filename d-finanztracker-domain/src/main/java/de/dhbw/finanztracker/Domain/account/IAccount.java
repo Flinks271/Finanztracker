@@ -20,4 +20,6 @@ public interface IAccount {
     Boolean addTransaction(ITransaction transaction);
     Boolean removeTransaction(ITransaction transaction);
     String toTerminalString();
+    void setTransactions(List<ITransaction> transactions);
+    void setReaccuring(List<IReaccuring> reaccurings);
 }

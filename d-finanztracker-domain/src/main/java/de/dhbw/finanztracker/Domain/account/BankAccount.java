@@ -76,6 +76,16 @@ public class BankAccount implements IAccount {
     public List<ITransaction> getTransactionHistory() {
         return transactionHistory;
     }
+    
+    @Override
+    public void setTransactions(List<ITransaction> transactions) {
+        this.transactionHistory = transactions;
+    }
+
+    @Override
+    public void setReaccuring(List<IReaccuring> reaccurings) {
+        this.reaccuringTransactions = reaccuringTransactions;
+    }
 
     @Override
     public Integer getCounter() {

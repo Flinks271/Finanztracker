@@ -86,6 +86,11 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
     public void setCategorys(List<String> categories) {
         this.categories = categories;
     }
+    
+    @Override
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
 
     @Override
     public double getAmount() {

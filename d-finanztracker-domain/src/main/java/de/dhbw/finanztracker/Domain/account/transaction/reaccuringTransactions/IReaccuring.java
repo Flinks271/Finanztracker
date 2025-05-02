@@ -29,5 +29,6 @@ public interface IReaccuring {
     void setLastModifiedDate(String lastModifiedDate);
     void setEndDate(String endDate);
     void setIntervalInDays(int intervalInDays);
+    void setCategories(List<String> categories);
     
 }
