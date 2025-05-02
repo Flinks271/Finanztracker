@@ -56,9 +56,9 @@ public class ReaccuringRepository implements IRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getWhere(String condition) {
+    public List<Map<String, Object>> getCond(String condition) {
         List<Map<String, Object>> rows = new ArrayList<>();
-        String query = "SELECT * FROM reaccuring WHERE {condition}";
+        String query = "SELECT * FROM reaccuring {condition}";
         query = query.replace("{condition}", condition);
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);

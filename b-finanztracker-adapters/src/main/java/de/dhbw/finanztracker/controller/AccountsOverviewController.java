@@ -18,7 +18,7 @@ public class AccountsOverviewController {
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + user.getUsername());
         IRepository accountRepository = repositories.get("accountRepository");
-        List<Map<String, Object>> result = accountRepository.getWhere("user_id = '" + user.getUserId() + "'");
+        List<Map<String, Object>> result = accountRepository.getCond("WHERE user_id = '" + user.getUserId() + "'");
         System.out.println("Result: " + result);
 
         if (result.isEmpty()) {

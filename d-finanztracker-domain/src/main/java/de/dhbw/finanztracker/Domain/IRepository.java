@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface IRepository {
     List<Map<String, Object>> getAll();
-    List<Map<String, Object>> getWhere(String condition);
+    List<Map<String, Object>> getCond(String condition);
     void save(String query);
     void deleteById(Object accountId);
 }
