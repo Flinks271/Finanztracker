@@ -13,11 +13,11 @@ import java.util.Map;
 
 public class AccountsOverviewController {
 
-    public static void Start(List<IRepository> repositories, User user, TerminalUtility terminalUtility) {
+    public static void Start(Map<String, IRepository> repositories, User user, TerminalUtility terminalUtility) {
 
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + user.getUsername());
-        IRepository accountRepository = repositories.get(0);
+        IRepository accountRepository = repositories.get("accountRepository");
         List<Map<String, Object>> result = accountRepository.getWhere("user_id = '" + user.getUserId() + "'");
         System.out.println("Result: " + result);
 

@@ -3,9 +3,16 @@ package de.dhbw.finanztracker;
 import de.dhbw.finanztracker.controller.StartController;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.persistance.jdbc.account.AccountRepository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.CategoriesRepository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.CounterpartyRepository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.ReaccuringRepository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.RelationRaccuringCategorieRepository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.RelationTransactionCategorieRepsository;
+import de.dhbw.finanztracker.persistance.jdbc.transactions.TransactionRepository;
 import de.dhbw.finanztracker.persistance.jdbc.user.UserRepository;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.flywaydb.core.Flyway;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -20,11 +27,16 @@ public class App {
 
         migrateDatabase();
 
-        List<IRepository> repositories = List.of(
-                new AccountRepository(),
-                new UserRepository()
-        );
-
+        Map<String, IRepository> repositories = new HashMap<>();
+        repositories.put("accountRepository", new AccountRepository());
+        repositories.put("userRepository", new UserRepository());
+        repositories.put("transactionRepository", new TransactionRepository());
+        repositories.put("reaccuringRepository", new ReaccuringRepository()); 
+        repositories.put("categoriesRepository", new CategoriesRepository());
+        repositories.put("counterpartyRepository", new CounterpartyRepository());
+        repositories.put("relationTransactionCategorieRepsository", new RelationTransactionCategorieRepsository());
+        repositories.put("relationReaccuringCategorieRepsository", new RelationRaccuringCategorieRepository());
+        
         StartController startController = new StartController();
         startController.Start(repositories);
         

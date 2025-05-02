@@ -6,11 +6,12 @@ import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.DoubleAdder;
 
 public class AccountsOverview {
 
-    public static void showAccounts(User user, List<IRepository> repositories, TerminalUtility terminalUtility) {
+    public static void showAccounts(User user, Map<String, IRepository> repositories, TerminalUtility terminalUtility) {
         terminalUtility.clearScreen();
 
         List<IAccount> accounts = user.getAccounts();
@@ -18,7 +19,7 @@ public class AccountsOverview {
         if (accounts.isEmpty()) {
             System.out.println("No accounts found for user: " + user.getUsername());
             System.out.println("Please create a new account.");
-            CreateNewAccount.createAccount(repositories.get(0), user,terminalUtility);
+            CreateNewAccount.createAccount(repositories.get("accountRepository"), user,terminalUtility);
             return;
         }
         

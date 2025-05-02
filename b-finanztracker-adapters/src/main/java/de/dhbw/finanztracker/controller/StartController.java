@@ -13,16 +13,16 @@ import java.util.Map;
 public class StartController {
 
 
-    public void Start(List<IRepository> repositories) {
+    public void Start(Map<String, IRepository> repositories) {
         TerminalUtility terminalUtility = new TerminalUtility();
         
         System.out.println("Starting the application...");
 
-        IRepository r = repositories.get(1);
+        IRepository r = repositories.get("userRepository");
         List<Map<String, Object>> result = r.getAll();
         User user = null;
         Boolean shouldrun = true;
-
+         
         do {
             terminalUtility.clearScreen();
             if (result.isEmpty()) {
