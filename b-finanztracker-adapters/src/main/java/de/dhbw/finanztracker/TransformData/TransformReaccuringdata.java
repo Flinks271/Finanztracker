@@ -26,15 +26,12 @@ public class TransformReaccuringdata {
         return reaccurings;
     }
 
-    @SuppressWarnings("unchecked")
     public static IReaccuring TransformReaccuring(Map<String, Object> map) {
-        Validate.isTrue(map.containsKey("categories"), "Missing required key: categories");
-        Validate.isTrue(map.containsKey("counterparty_id"), "Missing required key: counterparty_id");
 
         UUID reaccuringID = (UUID) map.get("reaccuring_id");
         String name = (String) map.get("reaccuring_name");
         String description = (String) map.get("reaccuring_description");
-        List<String> categories = (List<String>) map.get("categories");
+        List<String> categories = null;
         double amount = ((BigDecimal) map.get("amount")).doubleValue();
         LocalDate startDate = (LocalDate) map.get("reaccuring_start_date");
         LocalDate lastModifiedDate = (LocalDate) map.get("reaccuring_last_modified_date");

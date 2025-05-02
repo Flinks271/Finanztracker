@@ -26,17 +26,14 @@ public class TransformTransactiondata {
         return transactions;
     }
 
-    @SuppressWarnings("unchecked")
     public static ITransaction TransformTransaction(Map<String, Object> map) {
-        Validate.isTrue(map.containsKey("categories"), "Missing required key: name");
-        Validate.isTrue(map.containsKey("counterparty"), "Missing required key: name");
 
         ITransaction transaction = null;
 
         UUID transactionID = (UUID)map.get("transaction_id");
         double amount = ((BigDecimal)map.get("amount")).doubleValue();
         String description = (String)map.get("description");
-        List<String> categories = (List<String>)map.get("categories");
+        List<String> categories = null;
         LocalDate executionDateString = (LocalDate)map.get("execution_date");
         LocalDate entryDateString = (LocalDate)map.get("entry_date");
         LocalDate lastModifiedDateString = (LocalDate)map.get("last_modified_date");
