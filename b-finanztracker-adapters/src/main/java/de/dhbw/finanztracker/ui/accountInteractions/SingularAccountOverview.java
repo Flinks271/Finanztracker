@@ -25,6 +25,7 @@ public class SingularAccountOverview {
         maxBankNameWidth = Math.max(maxBankNameWidth, 9);
         int maxBalanceWidth = Math.max(String.valueOf(account.getBalance()).length(), 7);
         List<Integer> distanceAccountInfo = List.of(maxIndexWidth + 1, maxNameWidth + 2, maxBankNameWidth + 2, maxBalanceWidth + 3);
+        List<Integer> distanceBefore = List.copyOf(distanceAccountInfo);
     
         System.out.printf("%-" + maxIndexWidth + "s | %-" + maxNameWidth + "s | %-" + maxBankNameWidth + "s | %-" + maxBalanceWidth + "s %n",
                 "Nr", "Account Name","Bank Name", "Balance");
@@ -33,81 +34,87 @@ public class SingularAccountOverview {
         System.out.printf("%-" + maxIndexWidth + "s | %-" + maxNameWidth + "s | %-" + maxBankNameWidth + "s | %-" + maxBalanceWidth + ".2f € %n",
                  "1", account.getAccountName(), account.getBankName(), account.getBalance());
 
-        int repetitions = reaccuringTransactions.size();
-        int nameWidth = reaccuringTransactions.stream()
+        maxIndexWidth = Math.max(2, String.valueOf(reaccuringTransactions.size()).length());
+
+        int nameWidth = Math.max(4, reaccuringTransactions.stream()
                 .map(a -> a.getName().length())
                 .max(Integer::compare)
-                .orElse(0);
-        nameWidth = Math.max(nameWidth, 4);
-        int amountWidth = reaccuringTransactions.stream()
-                .map(a -> String.valueOf(a.getAmount()).length())
+                .orElse(0));
+        int amountWidth = Math.max(6, reaccuringTransactions.stream()
+                .map(a -> String.format("%.2f", a.getAmount()).length() + 2)
                 .max(Integer::compare)
-                .orElse(0);
-        amountWidth = Math.max(amountWidth, 6);
-        int counterpartyWidth = reaccuringTransactions.stream()
+                .orElse(0));
+        int counterpartyWidth = Math.max(17, reaccuringTransactions.stream()
                 .map(a -> a.getCounterparty().getCounterpartyName().length())
                 .max(Integer::compare)
-                .orElse(0);
-        counterpartyWidth = Math.max(counterpartyWidth, 17);
-        int dateWidth = reaccuringTransactions.stream()
+                .orElse(0));
+        int dateWidth = Math.max(10, reaccuringTransactions.stream()
                 .map(a -> a.getStartDate().toString().length())
                 .max(Integer::compare)
-                .orElse(0);
-        dateWidth = Math.max(dateWidth, 4);
-        int categoriesWidth = reaccuringTransactions.stream()
-                .map(a -> a.getCategoriesString().toString().length())
+                .orElse(0));
+        int categoriesWidth = Math.max(10, reaccuringTransactions.stream()
+                .map(a -> a.getCategoriesString().length())
                 .max(Integer::compare)
-                .orElse(0);
-        List<Integer> distanceReaccuring = List.of(maxIndexWidth + 1, nameWidth + 2, amountWidth + 2, counterpartyWidth + 2, dateWidth + 2, dateWidth + 2, categoriesWidth + 1);
-
-        terminalUtility.generateHyphenLineTwoSides(distanceAccountInfo, distanceReaccuring);
-
-        if (repetitions == 0) {
-            terminalUtility.generateHyphenLineOneSideTop(distanceAccountInfo);
-            System.out.println("No reaccuring transactions found for this account.");
-        } else {
-            System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth  + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
-                "Nr", "Name", "Amount", "Counterparty", "Start Date", "End Date", "Categories");
-            System.out.println(terminalUtility.generateHyphenLineTwoSides(distanceAccountInfo, distanceReaccuring));
-            for (int i = 0; i < repetitions; i++) {
-                IReaccuring reaccuring = reaccuringTransactions.get(i);
-                System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth  + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
-                    i + 1, reaccuring.getName(), reaccuring.getAmount(), reaccuring.getCounterparty().getCounterpartyName(),
-                    reaccuring.getStartDate(), reaccuring.getEndDate(), reaccuring.getCategoriesString());
-            } 
-        }
+                .orElse(0));
         
-        List<ITransaction> transactions = account.getTransactionHistory();
-        repetitions = transactions.size();
-        nameWidth = Math.max(nameWidth, transactions.stream()
-                                        .map(a -> a.getDescription().length())
-                                        .max(Integer::compare)
-                                        .orElse(0));
-        amountWidth = Math.max(amountWidth, transactions.stream()
-                                        .map(a -> String.valueOf(a.getAmount()).length())
-                                        .max(Integer::compare)
-                                        .orElse(0));
-        counterpartyWidth = Math.max(counterpartyWidth, transactions.stream()
-                                        .map(a -> a.getCounterparty().getCounterpartyName().length())
-                                        .max(Integer::compare)
-                                        .orElse(0));
+        if (!(reaccuringTransactions.isEmpty())) {    
 
-        List<Integer> distanceTransaction = List.of(maxIndexWidth + 1, nameWidth + 2, amountWidth + 2, counterpartyWidth + 2, dateWidth + 2, categoriesWidth + 1);
-        terminalUtility.generateHyphenLineTwoSides(distanceReaccuring, distanceTransaction);
+            
 
-        if (repetitions == 0) {
-            System.out.println("No transactions found for this account.");
-        } else {
-            System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth  + "s | %-" + categoriesWidth + "s %n",
-                "Nr", "Description", "Amount", "Counterparty", "Date", "Categories");
-            System.out.println(terminalUtility.generateHyphenLineOneSide(distanceTransaction));
-            for (int i = 0; i < repetitions; i++) {
+            List<Integer> distanceReaccuring = List.of(maxIndexWidth + 1, nameWidth + 2, amountWidth + 2, counterpartyWidth + 2, dateWidth + 2, dateWidth + 2, categoriesWidth + 2);
+            terminalUtility.generateHyphenLineTwoSides(distanceBefore, distanceReaccuring);
+            distanceBefore = List.copyOf(distanceReaccuring);
+            
+            System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + "s | %-" + counterpartyWidth + "s | %-" + dateWidth + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
+                    "Nr", "Name", "Amount", "Counterparty", "Start Date", "End Date", "Categories");
+            System.out.println(terminalUtility.generateHyphenLineOneSide(distanceReaccuring));
+
+            for (int i = 0; i < reaccuringTransactions.size(); i++) {
                 IReaccuring reaccuring = reaccuringTransactions.get(i);
-                System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth  + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
-                    i + 1, reaccuring.getName(), reaccuring.getAmount(), reaccuring.getCounterparty().getCounterpartyName(),
-                    reaccuring.getStartDate(), reaccuring.getEndDate(), reaccuring.getCategoriesString());
-            } 
-        }       
+                System.out.printf("%-" + maxIndexWidth + "d | %-" + nameWidth + "s | %-" + (amountWidth - 2) + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
+                        i + 1,
+                        reaccuring.getName() != null ? reaccuring.getName() : "N/A",
+                        reaccuring.getAmount(),
+                        reaccuring.getCounterparty() != null ? reaccuring.getCounterparty().getCounterpartyName() : "N/A",
+                        reaccuring.getStartDate() != null ? reaccuring.getStartDate() : "N/A",
+                        reaccuring.getEndDate() != null ? reaccuring.getEndDate() : "N/A",
+                        reaccuring.getCategoriesString() != null ? reaccuring.getCategoriesString() : "N/A");
+            }
+        }
+
+        if (!(transactionHistory.isEmpty())) {
+            nameWidth = Math.max(nameWidth, transactionHistory.stream()
+                    .map(a -> a.getDescription().length())
+                    .max(Integer::compare)
+                    .orElse(0));
+            amountWidth = Math.max(amountWidth, transactionHistory.stream()
+                    .map(a -> String.format("%.2f", a.getAmount()).length() + 2)
+                    .max(Integer::compare)
+                    .orElse(0));
+            counterpartyWidth = Math.max(counterpartyWidth, transactionHistory.stream()
+                    .map(a -> a.getCounterparty().getCounterpartyName().length())
+                    .max(Integer::compare)
+                    .orElse(0));
+            
+            List<Integer> distanceTransaction = List.of(maxIndexWidth + 1, nameWidth + 2, amountWidth + 2, counterpartyWidth + 2, dateWidth + 2, categoriesWidth + 2);
+            System.out.println(terminalUtility.generateHyphenLineTwoSides(distanceBefore, distanceTransaction));
+
+            System.out.printf("%-" + maxIndexWidth + "s | %-" + nameWidth + "s | %-" + amountWidth + "s | %-" + counterpartyWidth + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
+                    "Nr", "Name", "Amount", "Counterparty", "Date", "Categories");
+            System.out.println(terminalUtility.generateHyphenLineOneSide(distanceTransaction));
+
+            for (int i = 0; i < transactionHistory.size(); i++) {
+                ITransaction transaction = transactionHistory.get(i);
+                System.out.printf("%-" + maxIndexWidth + "d | %-" + nameWidth + "s | %-" + (amountWidth - 2) + ".2f € | %-" + counterpartyWidth + "s | %-" + dateWidth + "s | %-" + categoriesWidth + "s %n",
+                        i + 1,
+                        transaction.getDescription() != null ? transaction.getDescription() : "N/A",
+                        transaction.getAmount(),
+                        transaction.getCounterparty() != null ? transaction.getCounterparty().getCounterpartyName() : "N/A",
+                        transaction.getExecutionDate() != null ? transaction.getExecutionDate() : "N/A",
+                        transaction.getCategoriesString() != null ? transaction.getCategoriesString() : "N/A");
+            }
+        }
+               
     }
 
     public static String inputCommands(TerminalUtility terminalUtility){

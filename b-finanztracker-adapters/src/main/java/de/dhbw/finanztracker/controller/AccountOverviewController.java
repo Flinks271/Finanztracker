@@ -13,6 +13,8 @@ import de.dhbw.finanztracker.ui.TerminalUtility;
 import de.dhbw.finanztracker.ui.accountInteractions.RemoveAccount;
 import de.dhbw.finanztracker.ui.accountInteractions.SingularAccountOverview;
 import de.dhbw.finanztracker.ui.accountInteractions.UpdateAccount;
+import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.CreateNewMonthlyReaccuring;
+import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.CreateNewTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,18 @@ public class AccountOverviewController {
 
             switch (whatNext.charAt(0)) {
                 case 'c':
+                    switch (whatNext.charAt(1)) {
+                        case 't':
+                            CreateNewTransaction.createTransaction(repositories, account, terminalUtility);
+                            break;
+                        case 'r':
+                            CreateNewMonthlyReaccuring.createReaccuring(repositories, account, terminalUtility);
+                            break;
+                    
+                        default:
+                            break;
+                    }
+
                     break;
                 case 'r':
                     break;

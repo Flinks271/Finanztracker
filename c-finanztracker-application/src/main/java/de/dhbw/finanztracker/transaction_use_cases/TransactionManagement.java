@@ -9,7 +9,7 @@ import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.Transaction;
-import de.dhbw.finanztracker.domain.account.transaction.counterparty.Counterparty;
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 
 public class TransactionManagement {
 
@@ -18,7 +18,7 @@ public class TransactionManagement {
         account.removeTransaction(transaction);
     }
 
-    public static ITransaction createTransaction(Map<String, Object> transactionData, IRepository repository, IAccount account, Counterparty counterparty, List<String> categories) {
+    public static ITransaction createTransaction(Map<String, Object> transactionData, IRepository repository, IAccount account, ICounterparty counterparty, List<String> categories) {
         ITransaction transaction = new Transaction(
             UUID.randomUUID(),
             Double.parseDouble((String) transactionData.get("amount")),

@@ -13,7 +13,7 @@ public class CounterpartyManagement {
         repository.deleteById(counterparty.getCounterpartyId());
     }
 
-    public static ICounterparty createCounterparty(Map<String, Object> counterpartyData, IRepository repository) {
+    public static ICounterparty createCounterparty(Map<String, String> counterpartyData, IRepository repository) {
         ICounterparty counterparty = new Counterparty(
             UUID.randomUUID(),
             (String) counterpartyData.get("name"),

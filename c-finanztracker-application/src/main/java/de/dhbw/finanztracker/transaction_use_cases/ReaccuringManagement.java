@@ -6,7 +6,7 @@ import java.util.Map;
 
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
-import de.dhbw.finanztracker.domain.account.transaction.counterparty.Counterparty;
+import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.ReaccuringOneDayAMonth;
 
@@ -16,7 +16,7 @@ public class ReaccuringManagement {
         account.removeReaccuringTransaction(reaccuring);       
     } 
 
-    public static IReaccuring createReaccuring(Map<String, Object> reaccuringData, IRepository repository, IAccount account, Counterparty counterparty, List<String> categories) {
+    public static IReaccuring createReaccuring(Map<String, Object> reaccuringData, IRepository repository, IAccount account, ICounterparty counterparty, List<String> categories) {
         IReaccuring reaccuring = new ReaccuringOneDayAMonth(  
                                                 (String)reaccuringData.get("name"), 
                                                 (String)reaccuringData.get("description"), 
@@ -25,14 +25,14 @@ public class ReaccuringManagement {
                                                 (LocalDate)reaccuringData.get("start_date"), 
                                                 (LocalDate)reaccuringData.get("last_modified_date"), 
                                                 (LocalDate)reaccuringData.get("end_date"), 
-                                                Integer.parseInt((String) reaccuringData.get("interval_in_days")), 
-                                                Boolean.parseBoolean((String) reaccuringData.get("active")), 
+                                                (int)reaccuringData.get("interval_in_days"), 
+                                                (Boolean) reaccuringData.get("active"), 
                                                 counterparty);
         
         String query = "INSERT INTO reaccuring (reaccuring_id, bank_account_id, reaccuring_name, reaccuring_description, amount, reaccuring_start_date, reaccuring_last_modified_date, reaccuring_end_date, interval_in_days, counterparty_id) VALUES " +
             "('" + reaccuring.getReaccuringId() + "', '" + account.getAccountId() + "', '" + reaccuring.getName() + "', '" + reaccuring.getDescription() + "', '" +
             reaccuring.getAmount() + "', '" + reaccuring.getStartDate() + "', '" + reaccuring.getLastModifiedDate() + "', " +
-            (reaccuring.getEndDate() != null ? "'" + reaccuring.getEndDate() + "'" : "NULL") + ", '" + reaccuring.getIntervalInDays() + "', '" + 
+            (reaccuring.getEndDate() != null ? "'" + reaccuring.getEndDate() + "'" : "NULL") + ", '" + String.valueOf(reaccuring.getIntervalInDays()) + "', '" + 
             reaccuring.getCounterparty().getCounterpartyId() + "')";
         System.err.println(query);
         repository.save(query);           

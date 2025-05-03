@@ -71,7 +71,9 @@ public class TerminalUtility {
 
     public String generateHyphenLineTwoSides(List<Integer> distanceTop, List<Integer> distanceBottom){
         StringBuilder hyphenLine = new StringBuilder();
-        int maxSize = Math.max(distanceTop.size(), distanceBottom.size());
+        int sumDistanceTop = distanceTop.stream().mapToInt(Integer::intValue).sum();
+        int sumDistanceBottom = distanceBottom.stream().mapToInt(Integer::intValue).sum();
+        int maxSize = Math.max(sumDistanceTop, sumDistanceBottom);
         int nextTop = distanceTop.getFirst();
         int nextBottom = distanceBottom.getFirst();
         int indexTop = 1;
@@ -84,11 +86,13 @@ public class TerminalUtility {
                 hyphenLine.append("+");
                 loadTop = true;
                 loadBottom = true;
-            } else if (nextTop == 0) {
+            } else if (nextTop == 0 && indexTop < distanceTop.size()) {
                 hyphenLine.append("┴");
+                nextBottom--;
                 loadTop = true;
-            } else if (nextBottom == 0) {
+            } else if (nextBottom == 0 && indexBottom < distanceBottom.size()) {
                 hyphenLine.append("┬");
+                nextTop--;
                 loadBottom = true;
             }             else {
                 hyphenLine.append("-");
