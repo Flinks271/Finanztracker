@@ -136,19 +136,32 @@ public class SingularAccountOverview {
                 break;
             
             case 'd':
-                input = input.substring(1).trim();
-                next = input.isEmpty() ? '\0' : input.charAt(0);
+                String inputWithoutFirstChar = input.substring(1).trim();
+                next = inputWithoutFirstChar.isEmpty() ? '\0' : inputWithoutFirstChar.charAt(0);
+                String inputWithoutSecondChar = inputWithoutFirstChar.substring(1).trim();
                 switch (next) {
                     case 'r':
-                        command = "cr";
+                        if (inputWithoutSecondChar.matches("\\d+")) { 
+                            command = "dr" + (Integer.parseInt(inputWithoutSecondChar) - 1);
+                        } else {
+                            System.out.println("Invalid input. Please try again.");
+                            System.out.println("For help with the commands you may use 'h' or 'help'.");
+                            return inputCommands(terminalUtility);
+                        }
                         break;
                     case 't':
-                        command = "ct";
+                        if (inputWithoutSecondChar.matches("\\d+")) { 
+                            command = "dt" + (Integer.parseInt(inputWithoutSecondChar) - 1);
+                        } else {
+                            System.out.println("Invalid input. Please try again.");
+                            System.out.println("For help with the commands you may use 'h' or 'help'.");
+                            return inputCommands(terminalUtility);
+                        }
                         break;               
-                    default:
-                        System.out.println("Invalid input. Please try again.");
-                        System.out.println("For help with the commands you may use 'h' or 'help'.");
-                        return inputCommands(terminalUtility);
+                        default:
+                            System.out.println("Invalid input. Please try again.");
+                            System.out.println("For help with the commands you may use 'h' or 'help'.");
+                            return inputCommands(terminalUtility);
                 }
                 break;
             case 'r':
@@ -189,6 +202,7 @@ public class SingularAccountOverview {
                 System.out.println("t - select a transaction by number to edit it");
                 System.out.println("d - delete a transaction or reaccuring transaction");
                 System.out.println("d - must be followed by the first letter of the type you want to delete: r for reaccuring transaction or t for transaction");
+                System.out.println("d - must be followed by the number of the transaction or reaccuring transaction you want to delete");
                 System.out.println("u - update the account information");
                 System.out.println("y - delete the account");
                 System.out.println("e - exit out of the account overview"); 
