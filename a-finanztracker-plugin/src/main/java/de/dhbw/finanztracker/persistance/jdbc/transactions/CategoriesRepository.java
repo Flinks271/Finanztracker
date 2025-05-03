@@ -97,6 +97,7 @@ public class CategoriesRepository implements IRepository{
             throw new IllegalArgumentException("Category name must be a String");
         }
         String query = "DELETE FROM categories WHERE category_name = ?";
+        query = query.replace("?", "'" + categorieName + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

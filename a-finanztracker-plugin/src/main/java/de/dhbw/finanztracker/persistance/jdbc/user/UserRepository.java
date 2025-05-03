@@ -87,12 +87,12 @@ public class UserRepository implements IRepository {
     }
 
     @Override
-    public void deleteById(Object accountId) {
-        if (!(accountId instanceof UUID)) {
-            throw new IllegalArgumentException("accountId must be of type UUID");
+    public void deleteById(Object userId) {
+        if (!(userId instanceof UUID)) {
+            throw new IllegalArgumentException("userID must be of type UUID");
         }
         String query = "DELETE FROM userTable WHERE user_id = ?";
-        query = query.replace("?", "'" + accountId.toString() + "'");
+        query = query.replace("?", "'" + userId.toString() + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();

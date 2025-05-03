@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class ReaccuringRepository implements IRepository {
     private final String dbUrl ;
@@ -93,26 +94,16 @@ public class ReaccuringRepository implements IRepository {
     }
 
     @Override
-    public void deleteById(Object compositeKey) {
-        if (!(compositeKey instanceof Map<?, ?>)) {
-            throw new IllegalArgumentException("Expected a Map with keys 'reaccuringID' and 'bankAccountID'");
+    public void deleteById(Object reaccuringId) {
+         if (!(reaccuringId instanceof UUID)) {
+            throw new IllegalArgumentException("Transaction ID must be an UUID");
         }
-    
-        @SuppressWarnings("unchecked")
-        Map<String, Object> keyMap = (Map<String, Object>) compositeKey;
-        Object reaccuringID = keyMap.get("reaccuringID");
-        Object bankAccountID = keyMap.get("bankAccountID");
-    
-        if (reaccuringID == null || bankAccountID == null) {
-            throw new IllegalArgumentException("Both 'reaccuringID' and 'bankAccountID' must be provided");
-        }
-    
-        String query = "DELETE FROM reaccuring WHERE reaccuring_id = ? AND bank_account_id = ?";
+        String query = "DELETE FROM reaccuring WHERE reaccuring_id = ?";
+        query = query.replace("?", "'" + reaccuringId.toString() + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-    
-            preparedStatement.setString(1, reaccuringID.toString());
-            preparedStatement.setString(2, bankAccountID.toString());
+
+            preparedStatement.setString(1, reaccuringId.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

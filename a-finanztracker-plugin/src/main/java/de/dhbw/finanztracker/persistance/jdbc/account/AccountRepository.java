@@ -93,6 +93,7 @@ public class AccountRepository implements IRepository {
             throw new IllegalArgumentException("Account ID must be of type UUID");
         }
         String query = "DELETE FROM accounts WHERE account_id = ?";
+        query = query.replace("?", "'" + accountId.toString() + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

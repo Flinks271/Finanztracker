@@ -98,6 +98,7 @@ public class CounterpartyRepository implements IRepository {
             throw new IllegalArgumentException("Counterparty ID must be an UUID");
         }
         String query = "DELETE FROM counterparty WHERE counterparty_id = ?";
+        query = query.replace("?", "'" + counterpartyID.toString() + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

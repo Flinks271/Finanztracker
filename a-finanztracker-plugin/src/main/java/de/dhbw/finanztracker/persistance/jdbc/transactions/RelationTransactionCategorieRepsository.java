@@ -101,20 +101,18 @@ public class RelationTransactionCategorieRepsository implements IRepository{
         Map<String, Object> keyMap = (Map<String, Object>) compositeKey;
 
         Object transactionID = keyMap.get("transactionID");
-        Object bankAccountID = keyMap.get("bankAccountID");
         Object categoryName = keyMap.get("categoryName");
 
-        if (transactionID == null || bankAccountID == null || categoryName == null) {
+        if (transactionID == null || categoryName == null) {
             throw new IllegalArgumentException("All keys 'transactionID', 'bankAccountID', and 'categoryName' must be provided");
         }
 
-        String query = "DELETE FROM relation_transaction_category WHERE transaction_id = ? AND bank_account_id = ? AND category_name = ?";
+        String query = "DELETE FROM relation_transaction_category WHERE transaction_id = ? AND category_name = ?";
+        query = query.replaceFirst("?", transactionID.toString()).replaceFirst("?", categoryName.toString());
+
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, transactionID.toString());
-            preparedStatement.setString(2, bankAccountID.toString());
-            preparedStatement.setString(3, categoryName.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
