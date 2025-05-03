@@ -7,13 +7,14 @@ import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 import de.dhbw.finanztracker.ui.accountInteractions.AccountsOverview;
 import de.dhbw.finanztracker.ui.accountInteractions.CreateNewAccount;
+import de.dhbw.finanztracker.ui.userInteractions.RemoveUser;
 
 import java.util.List;
 import java.util.Map;
 
 public class AccountsOverviewController {
 
-    public static void Start(Map<String, IRepository> repositories, User user, TerminalUtility terminalUtility) {
+    public static void Start(Map<String, IRepository> repositories,List<User> users, User user, TerminalUtility terminalUtility) {
 
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + user.getUsername());
@@ -50,7 +51,11 @@ public class AccountsOverviewController {
                     case "c":
                         CreateNewAccount.createAccount(accountRepository, user, terminalUtility);
                         break;
-            
+                    case "remove":
+                    case "r":
+                        RemoveUser.removeAccount(repositories.get("userRepository"), users, user, terminalUtility);
+                        shouldrun = false;
+                        break;
                     case "sign out":
                     case "s":
                         System.out.println("Signing out...");

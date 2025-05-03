@@ -37,7 +37,7 @@
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** User account and data are permanently removed from the system.  
-**Fulfilled:** no
+**Fulfilled:** <span style="color:green">yes</span>
 
 
 ## 2. Manage Bank Accounts

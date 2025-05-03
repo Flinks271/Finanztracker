@@ -21,19 +21,26 @@ public class StartController {
         IRepository r = repositories.get("userRepository");
         List<Map<String, Object>> result = r.getAll();
         User user = null;
+        List<User> users = null;
         Boolean shouldrun = true;
-         
+        if (result.isEmpty()) {
+            user = NewUserRegistration.registerNewUser(r, terminalUtility);
+        } else {
+            users = TransformUserdata.TransformUsers(result);
+            user = UserSelection.selectUser(users,r, terminalUtility);
+        }
+
         do {
             terminalUtility.clearScreen();
-            if (result.isEmpty()) {
+            
+            if (users.isEmpty()) {
                 user = NewUserRegistration.registerNewUser(r, terminalUtility);
             } else {
-                List<User> users = TransformUserdata.TransformUsers(result);
-                user = UserSelection.selectUser(users,r, terminalUtility);
+                user = UserSelection.selectUser(users,r, terminalUtility);  
             }
             
             if (user != null) {
-                AccountsOverviewController.Start(repositories, user, terminalUtility);
+                AccountsOverviewController.Start(repositories,users,  user, terminalUtility);
             } else {
                 shouldrun = false;   
             }
