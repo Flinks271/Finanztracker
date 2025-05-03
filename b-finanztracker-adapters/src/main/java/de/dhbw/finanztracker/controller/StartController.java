@@ -7,6 +7,7 @@ import de.dhbw.finanztracker.ui.TerminalUtility;
 import de.dhbw.finanztracker.ui.userInteractions.NewUserRegistration;
 import de.dhbw.finanztracker.ui.userInteractions.UserSelection;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class StartController {
         IRepository r = repositories.get("userRepository");
         List<Map<String, Object>> result = r.getAll();
         User user = null;
-        List<User> users = null;
+        List<User> users = new ArrayList<>();
         Boolean shouldrun = true;
         if (result.isEmpty()) {
             user = NewUserRegistration.registerNewUser(r, terminalUtility);

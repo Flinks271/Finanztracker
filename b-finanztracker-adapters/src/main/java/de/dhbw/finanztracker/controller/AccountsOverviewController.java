@@ -26,7 +26,7 @@ public class AccountsOverviewController {
             CreateNewAccount.createAccount(accountRepository, user, terminalUtility);
         } else {
             List<IAccount> accounts = TransformAccountdata.TransformAccounts(result);
-            user.addAccounts(accounts);
+            user.setAccounts(accounts);
         }
 
         System.out.println("Loading accounts for user: " + user.getUsername());
