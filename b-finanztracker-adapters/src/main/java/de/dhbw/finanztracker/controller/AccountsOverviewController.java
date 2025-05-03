@@ -40,7 +40,7 @@ public class AccountsOverviewController {
 
             if (whatNext.matches("\\d+")) { 
                 int index = Integer.parseInt(whatNext) - 1;
-                AccountOverviewController.Start(repositories, user.getAccount(index), terminalUtility);
+                AccountOverviewController.Start(repositories, user.getAccount(index), terminalUtility, user);
             } else {
                 switch (whatNext) {
                     case "create":

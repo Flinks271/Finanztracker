@@ -8,8 +8,9 @@ import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
+import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
-import de.dhbw.finanztracker.ui.accountInteractions.AccountsOverview;
+import de.dhbw.finanztracker.ui.accountInteractions.RemoveAccount;
 import de.dhbw.finanztracker.ui.accountInteractions.SingularAccountOverview;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 public class AccountOverviewController {
 
-    public static void Start(Map<String, IRepository> repositories,IAccount account, TerminalUtility terminalUtility) {
+    public static void Start(Map<String, IRepository> repositories,IAccount account, TerminalUtility terminalUtility, User user) {
         
         System.out.println("Starting the AccountOverview...");
         System.out.println("Loading accounts for user: " + account.getAccountName());
@@ -31,30 +32,29 @@ public class AccountOverviewController {
         do {   
             terminalUtility.clearScreen();
             SingularAccountOverview.showAccountdetails(account, repositories, terminalUtility);
-            terminalUtility.readLine();
 
             String whatNext = SingularAccountOverview.inputCommands(terminalUtility);
 
-            /* 
-            String whatNext = SingularAccountOverview.inputCommands(terminalUtility, user.getAccounts());
+            switch (whatNext.charAt(0)) {
+                case 'c':
+                    break;
+                case 'r':
+                    break;
+                case 't':
+                    break;
+                case 'd':
+                    break;
+                case 'u':
+                    break;
+                case 'y':
+                    RemoveAccount.removeAccount(repositories.get("accountRepository"), user, terminalUtility);
+                    break;
+                case 'e':
+                    shouldrun = false;
+                    break;
+                
 
-            if (whatNext.matches("\\d+")) { 
-                int index = Integer.parseInt(whatNext);
-                AccountOverviewController.Start(repositories, user.getAccount(index), terminalUtility);
-            } else {
-                switch (whatNext) {
-                    case "create":
-                    case "c":
-                        CreateNewAccount.createAccount(accountRepository, user, terminalUtility);
-                        break;
-            
-                    case "sign out":
-                    case "s":
-                        System.out.println("Signing out...");
-                        shouldrun = false;
-                        break;
-                }
-            }*/
+            }
         } while (shouldrun == true);
     }
 
