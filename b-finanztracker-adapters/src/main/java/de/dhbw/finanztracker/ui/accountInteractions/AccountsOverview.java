@@ -96,6 +96,10 @@ public class AccountsOverview {
                 case "s":
                     command = "s";
                     break;
+                case "remove":
+                case "r":
+                    command = "r";
+                    break;
         
                 case "h":
                 case "help":
@@ -103,6 +107,7 @@ public class AccountsOverview {
                     System.out.println("'" + accounts.size() + "': Select an account by number.");
                     System.out.println("'c' or 'create': Create a new Account.");
                     System.out.println("'s' or 'sign out': Sign your current user out and return to user selection.");
+                    System.out.println("'r' or 'remove': Remove your current user and all associated accounts.");
                     return inputCommands(terminalUtility, accounts);
         
                 default:
