@@ -12,6 +12,7 @@ import de.dhbw.finanztracker.domain.user.User;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 import de.dhbw.finanztracker.ui.accountInteractions.RemoveAccount;
 import de.dhbw.finanztracker.ui.accountInteractions.SingularAccountOverview;
+import de.dhbw.finanztracker.ui.accountInteractions.UpdateAccount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class AccountOverviewController {
                 case 'd':
                     break;
                 case 'u':
+                    UpdateAccount.updateAccount(repositories.get("accountRepository"), account, terminalUtility);
                     break;
                 case 'y':
                     RemoveAccount.removeAccount(repositories.get("accountRepository"), user, account, terminalUtility);

@@ -27,7 +27,6 @@ public class StartController {
             user = NewUserRegistration.registerNewUser(r, terminalUtility);
         } else {
             users = TransformUserdata.TransformUsers(result);
-            user = UserSelection.selectUser(users,r, terminalUtility);
         }
 
         do {

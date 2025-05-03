@@ -92,10 +92,9 @@ public class UserRepository implements IRepository {
             throw new IllegalArgumentException("accountId must be of type UUID");
         }
         String query = "DELETE FROM userTable WHERE user_id = ?";
+        query = query.replace("?", "'" + accountId.toString() + "'");
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, accountId.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
