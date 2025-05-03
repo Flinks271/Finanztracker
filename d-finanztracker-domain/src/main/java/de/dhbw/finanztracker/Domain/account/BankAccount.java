@@ -17,7 +17,7 @@ public class BankAccount implements IAccount {
     private List <IReaccuring> reaccuringTransactions;
     private List<ITransaction> transactionHistory;
 
-
+    
     public BankAccount( double balance, String accountName, String bankName) {
         Validate.notBlank(accountName, "The name of the Account must not be blank");
         Validate.notBlank(bankName, "The name of the Bank must not be blank");
@@ -85,6 +85,24 @@ public class BankAccount implements IAccount {
     @Override
     public void setReaccuring(List<IReaccuring> reaccurings) {
         this.reaccuringTransactions = reaccurings;
+    }
+
+    @Override
+    public void setAccountName(String accountName) {
+        Validate.notBlank(accountName, "The name of the Account must not be blank");
+        this.accountName = accountName;
+    }
+
+    @Override
+    public void setBankName(String bankName) {
+        Validate.notBlank(bankName, "The name of the Bank must not be blank");
+        this.bankName = bankName;
+    }
+
+    @Override
+    public void setBalance(double balance) {
+        Validate.isTrue(balance >= 0, "Balance must not be negative, but was: %s", balance);
+        this.balance = balance;
     }
 
     @Override

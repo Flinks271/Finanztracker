@@ -22,4 +22,7 @@ public interface IAccount {
     String toTerminalString();
     void setTransactions(List<ITransaction> transactions);
     void setReaccuring(List<IReaccuring> reaccurings);
+    void setAccountName(String accountName);
+    void setBankName(String bankName);
+    void setBalance(double balance);
 }
