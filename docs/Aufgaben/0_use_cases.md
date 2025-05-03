@@ -45,7 +45,7 @@
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Bank account details are updated in the system.  
-**Fullfilled:** no  
+**Fullfilled:** <span style="color:green">yes</span>  
 
 ### 2.1 Manage Depots (Optional for expansion)
 **Description:** Allow users to add, edit, and delete depot accounts for managing investments.  
