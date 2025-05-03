@@ -47,7 +47,7 @@ public class AccountOverviewController {
                 case 'u':
                     break;
                 case 'y':
-                    RemoveAccount.removeAccount(repositories.get("accountRepository"), user, terminalUtility);
+                    RemoveAccount.removeAccount(repositories.get("accountRepository"), user, account, terminalUtility);
                     break;
                 case 'e':
                     shouldrun = false;

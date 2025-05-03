@@ -1,6 +1,6 @@
 package de.dhbw.finanztracker.ui.accountInteractions;
 
-import de.dhbw.finanztracker.account_use_cases.account_manipulation.AccountDeletion;
+import de.dhbw.finanztracker.account_use_cases.account_manipulation.AccountManagement;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.user.User;
@@ -16,7 +16,7 @@ public class RemoveAccount {
         
 
         if (input.equals("y")) {
-            AccountDeletion.deleteAccount(repository, user, account);
+            AccountManagement.deleteAccount(repository, user, account);
             System.out.println("Account " + account.getAccountName() + " has been deleted successfully.");
         } else if (input.equals("n")) {
             System.out.println("Account deletion cancelled.");

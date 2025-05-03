@@ -5,8 +5,14 @@ import java.util.UUID;
 
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.BankAccount;
+import de.dhbw.finanztracker.domain.account.IAccount;
+import de.dhbw.finanztracker.domain.user.User;
 
-public class AccountCreation {
+public class AccountManagement {
+    public static void deleteAccount(IRepository repository, User user, IAccount account) {
+        repository.deleteById(account.getAccountId());
+        user.removeAccount(account);        
+    } 
 
     public static BankAccount createAccount(Map<String, String> accountData, IRepository repository, UUID userId) {
         BankAccount account = new BankAccount(  Double.parseDouble(accountData.get("balance")), 

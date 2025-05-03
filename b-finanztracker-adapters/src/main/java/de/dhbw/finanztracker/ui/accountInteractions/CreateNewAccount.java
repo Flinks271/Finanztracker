@@ -1,6 +1,6 @@
 package de.dhbw.finanztracker.ui.accountInteractions;
 
-import de.dhbw.finanztracker.account_use_cases.account_manipulation.AccountCreation;
+import de.dhbw.finanztracker.account_use_cases.account_manipulation.AccountManagement;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.user.User;
@@ -23,7 +23,7 @@ public class CreateNewAccount {
         Map<String, String> inputs = getBasicinputs(terminalUtility);
 
         if (input == 1) {
-            account = AccountCreation.createAccount(inputs, repository, user.getUserId());
+            account = AccountManagement.createAccount(inputs, repository, user.getUserId());
             System.out.println("Account " + account.getAccountName() + " has been created successfully.");
         }            
 
