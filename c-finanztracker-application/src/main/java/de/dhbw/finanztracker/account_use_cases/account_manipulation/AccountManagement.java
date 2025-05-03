@@ -29,7 +29,7 @@ public class AccountManagement {
     }  
 
     public static void updateAccount(IRepository repository, IAccount account, Map<String, String> accountData) {
-        account.setAccountname(accountData.get("account_name"));
+        account.setAccountName(accountData.get("account_name"));
         account.setBankName(accountData.get("bank_name"));
         account.setBalance(Double.parseDouble(accountData.get("balance")));
         String query = "UPDATE accounts SET balance = '" + account.getBalance() + "', account_name = '" + account.getAccountName() + "', bank_name = '" + account.getBankName() + "' WHERE account_id = '" + account.getAccountId() + "'";
