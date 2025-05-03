@@ -34,6 +34,9 @@ public class AccountsOverviewController {
         Boolean shouldrun = true;
         do {
             terminalUtility.clearScreen();
+            if (user.getAccounts().isEmpty()) {
+                CreateNewAccount.createAccount(accountRepository, user, terminalUtility);
+            }
             AccountsOverview.showAccounts(user, repositories, terminalUtility);        
 
             String whatNext = AccountsOverview.inputCommands(terminalUtility, user.getAccounts());

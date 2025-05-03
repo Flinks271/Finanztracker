@@ -20,9 +20,9 @@ public class CreateNewAccount {
         int input = terminalUtility.readNextInt();
         
         
-        Map<String, String> inputs = getBasicinputs(terminalUtility);
 
         if (input == 1) {
+            Map<String, String> inputs = getBasicinputs(terminalUtility);
             account = AccountManagement.createAccount(inputs, repository, user.getUserId());
             System.out.println("Account " + account.getAccountName() + " has been created successfully.");
         }            
