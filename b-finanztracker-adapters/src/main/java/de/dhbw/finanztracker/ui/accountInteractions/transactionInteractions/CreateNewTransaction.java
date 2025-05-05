@@ -39,6 +39,30 @@ public class CreateNewTransaction {
         terminalUtility.pauseForOneSecond();
     }
 
+    public static void updateTransaction(Map<String, IRepository> repositorys, ITransaction transaction, TerminalUtility terminalUtility) {
+        terminalUtility.clearScreen();
+
+
+        System.out.println("Ary you sure you want to update The Data in this transaction?:");
+        System.out.println("y/n:");
+        String input = terminalUtility.readLine();
+        
+        
+
+        if (input.equals("y")) {
+            Map<String, Object> inputs = CreateNewTransaction.getTransactionInputs(terminalUtility);
+            ICounterparty counterparty = CreateNewTransaction.getCounterpartyInputs(terminalUtility, repositorys.get("counterpartyRepository"));
+            List<String> categories = CreateNewTransaction.getCategoriesInputs(terminalUtility, repositorys.get("categoriesRepository"));
+            TransactionManagement.updateTransaction(repositorys.get("transactionRepository"), transaction, inputs, counterparty, categories);
+            System.out.println("Transaction: " + transaction.getDescription() + " has been updated successfully.");
+        } else if (input.equals("n")) {
+            System.out.println("Transaction update cancelled.");
+        } else {
+            System.out.println("Invalid input. Please enter 'y' or 'n'.");
+            updateTransaction(repositorys, transaction, terminalUtility);   
+        }
+    }
+
     private static Map<String, Object> getTransactionInputs(TerminalUtility terminalUtility) {
         Map<String, Object> inputs = new HashMap<>();
 

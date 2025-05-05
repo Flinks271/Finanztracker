@@ -1,10 +1,12 @@
 package de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions;
 
 import de.dhbw.finanztracker.transaction_use_cases.ReaccuringManagement;
+import de.dhbw.finanztracker.transaction_use_cases.TransactionManagement;
 import de.dhbw.finanztracker.TransformData.TransformCounterpartydata;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
@@ -37,6 +39,30 @@ public class CreateNewMonthlyReaccuring {
         }
 
         terminalUtility.pauseForOneSecond();
+    }
+
+    public static void updateReaccuring(Map<String, IRepository> repositorys, IReaccuring reaccuring, TerminalUtility terminalUtility) {
+        terminalUtility.clearScreen();
+
+
+        System.out.println("Ary you sure you want to update The Data in this transaction?:");
+        System.out.println("y/n:");
+        String input = terminalUtility.readLine();
+        
+        
+
+        if (input.equals("y")) {
+            Map<String, Object> inputs = getReaccuringInputs(terminalUtility);
+            ICounterparty counterparty = getCounterpartyInputs(terminalUtility, repositorys.get("counterpartyRepository"));
+            List<String> categories = getCategoriesInputs(terminalUtility, repositorys.get("categoriesRepository"));
+            ReaccuringManagement.updateReaccuring(repositorys.get("transactionRepository"), reaccuring, inputs, counterparty, categories);
+            System.out.println("Transaction: " + reaccuring.getDescription() + " has been updated successfully.");
+        } else if (input.equals("n")) {
+            System.out.println("Transaction update cancelled.");
+        } else {
+            System.out.println("Invalid input. Please enter 'y' or 'n'.");
+            updateReaccuring(repositorys, reaccuring, terminalUtility);   
+        }
     }
 
     private static Map<String, Object> getReaccuringInputs(TerminalUtility terminalUtility) {

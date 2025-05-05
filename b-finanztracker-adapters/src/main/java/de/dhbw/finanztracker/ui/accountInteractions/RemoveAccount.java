@@ -24,7 +24,5 @@ public class RemoveAccount {
             System.out.println("Invalid input. Please enter 'y' or 'n'.");
             removeAccount(repository, user, account, terminalUtility);   
         }
-    }
-
-    
+    }   
 }

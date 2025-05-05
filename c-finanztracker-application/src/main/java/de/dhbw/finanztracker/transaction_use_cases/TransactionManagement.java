@@ -37,7 +37,14 @@ public class TransactionManagement {
         return transaction;
     }
 
-    public static void updateTransaction(IRepository repository, ITransaction transaction) {
+    public static void updateTransaction(IRepository repository, ITransaction transaction, Map<String, Object> inputs, ICounterparty counterparty, List<String> categories) {
+        transaction.setAmount(Double.parseDouble((String) inputs.get("amount")));
+        transaction.setDescription((String) inputs.get("description"));
+        transaction.setExecutionDate((LocalDate) inputs.get("execution_date"));
+        transaction.setCounterparty(counterparty);
+        transaction.setCategories(categories);
+        transaction.setLastModifiedDate(LocalDate.now());
+
         String query = "UPDATE transactions SET " +
                        "amount = '" + transaction.getAmount() + "', " +
                        "transaction_description = '" + transaction.getDescription() + "', " +

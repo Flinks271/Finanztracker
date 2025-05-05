@@ -47,17 +47,31 @@ public class AccountOverviewController {
                         case 'r':
                             CreateNewMonthlyReaccuring.createReaccuring(repositories, account, terminalUtility);
                             break;
-                    
                         default:
                             break;
                     }
-
                     break;
                 case 'r':
+                    whatNext = whatNext.substring(1);
+                    int index = Integer.parseInt(whatNext);
+                    CreateNewMonthlyReaccuring.updateReaccuring(repositories, account.getReaccuringTransactions().get(index), terminalUtility);
                     break;
                 case 't':
+                    whatNext = whatNext.substring(1);
+                    index = Integer.parseInt(whatNext);
+                    CreateNewTransaction.updateTransaction(repositories, account.getTransactionHistory().get(index), terminalUtility);
                     break;
                 case 'd':
+                    switch (whatNext.charAt(1)) {
+                        case 't':
+                            CreateNewTransaction.createTransaction(repositories, account, terminalUtility);
+                            break;
+                        case 'r':
+                            CreateNewMonthlyReaccuring.createReaccuring(repositories, account, terminalUtility);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 'u':
                     UpdateAccount.updateAccount(repositories.get("accountRepository"), account, terminalUtility);

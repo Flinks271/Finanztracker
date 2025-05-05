@@ -40,7 +40,22 @@ public class ReaccuringManagement {
         return reaccuring;
     }  
 
-    public static void updateReaccuring(IRepository repository, IReaccuring reaccuring) {
+    public static void updateReaccuring(IRepository repository, IReaccuring reaccuring, Map<String, Object> reaccuringData, ICounterparty counterparty, List<String> categories) {
+        reaccuring.setName((String) reaccuringData.get("name"));
+        reaccuring.setDescription((String) reaccuringData.get("description"));
+        reaccuring.setAmount(Double.parseDouble((String) reaccuringData.get("amount")));
+        reaccuring.setStartDate((String) reaccuringData.get("start_date"));  
+        reaccuring.setLastModifiedDate((String) reaccuringData.get("last_modified_date"));
+        reaccuring.setEndDate((String) reaccuringData.get("end_date"));
+        reaccuring.setIntervalInDays((int) reaccuringData.get("interval_in_days"));
+        if (!(reaccuringData.get("end_date") != null && LocalDate.now().isAfter((LocalDate) reaccuringData.get("end_date")))) {
+            reaccuring.setActive(false);
+        } else {
+            reaccuring.setActive(true);
+        }
+        reaccuring.setCounterparty(counterparty);
+        reaccuring.setCategories(categories);
+
         String query = "UPDATE reaccuring SET " +
                        "reaccuring_name = '" + reaccuring.getName() + "', " +
                        "reaccuring_description = '" + reaccuring.getDescription() + "', " +
