@@ -3,6 +3,7 @@ package de.dhbw.finanztracker.controller;
 import de.dhbw.finanztracker.TransformData.TransformCounterpartydata;
 import de.dhbw.finanztracker.TransformData.TransformReaccuringdata;
 import de.dhbw.finanztracker.TransformData.TransformTransactiondata;
+import de.dhbw.finanztracker.account_use_cases.account_manipulation.AccountManagement;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
@@ -84,10 +85,10 @@ public class AccountOverviewController {
                 case 'e':
                     shouldrun = false;
                     break;
-                
-
             }
         } while (shouldrun == true);
+
+        AccountManagement.updateAccount(repositories.get("accountRepository"), account);
     }
 
     private static void loadAcountData(IAccount account, Map<String, IRepository> repositories) {

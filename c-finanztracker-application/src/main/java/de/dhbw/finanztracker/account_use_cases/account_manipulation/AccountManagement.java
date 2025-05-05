@@ -35,4 +35,9 @@ public class AccountManagement {
         String query = "UPDATE accounts SET balance = '" + account.getBalance() + "', account_name = '" + account.getAccountName() + "', bank_name = '" + account.getBankName() + "' WHERE account_id = '" + account.getAccountId() + "'";
         repository.save(query);        
     }
+
+    public static void updateAccount(IRepository repository, IAccount account) {
+        String query = "UPDATE accounts SET balance = '" + account.getBalance() + "', account_name = '" + account.getAccountName() + "', bank_name = '" + account.getBankName() + "' WHERE account_id = '" + account.getAccountId() + "'";
+        repository.save(query);        
+    }
 }
