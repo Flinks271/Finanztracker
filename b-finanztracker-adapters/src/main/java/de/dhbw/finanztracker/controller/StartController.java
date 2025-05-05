@@ -26,6 +26,7 @@ public class StartController {
         Boolean shouldrun = true;
         if (result.isEmpty()) {
             user = NewUserRegistration.registerNewUser(r, terminalUtility);
+            users.add(user);
         } else {
             users = TransformUserdata.TransformUsers(result);
         }
@@ -35,6 +36,7 @@ public class StartController {
             
             if (users.isEmpty()) {
                 user = NewUserRegistration.registerNewUser(r, terminalUtility);
+                users.add(user);
             } else {
                 user = UserSelection.selectUser(users,r, terminalUtility);  
             }
