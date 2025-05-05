@@ -127,7 +127,7 @@ public class BankAccount implements IAccount {
     @Override
     public Boolean removeTransaction(ITransaction transaction) {
         
-        balance += transaction.getAmount(); 
+        balance -= transaction.getAmount(); 
         if(balance > 0) {
             transactionHistory.remove(transaction); 
             counter--;
