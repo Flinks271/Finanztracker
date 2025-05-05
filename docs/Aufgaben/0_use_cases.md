@@ -73,35 +73,35 @@
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Income entry is saved in the system.  
-**Fullfilled:** no  
+**Fullfilled:** <span style="color:green">yes</span>  
 
 ### 3.1 Add Income that happen in intervalls
 **Description:** Allow users to add income details, including source, amount, sender, date and intervall.  
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Income entry and intervall is saved in the system.  
-**Fullfilled:** no  
+**Fullfilled:** <span style="color:green">yes</span>  
 
 ## 4. Add Expense
 **Description:** Allow users to record expenses with details such as category (optional), recipient, amount, and date.  
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Expense entry is saved in the system.  
-**Fullfilled:** no  
+**Fullfilled:** n<span style="color:green">yes</span>o  
 
 ### 4.1 Add Expense that happen in intervalls
 **Description:** Allow users to record expenses with details such as category (optional), recipient, amount, date and intervall.  
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Expense entry and intervall is saved in the system.  
-**Fullfilled:** no  
+**Fullfilled:** <span style="color:green">yes</span>  
 
 ## 5. View Transaction History
 **Description:** Provide users with a list of all their income and expense transactions arranged in the order of execution.
 **Actors:** User  
 **Preconditions:** User must be logged in.  
 **Postconditions:** Transaction history is displayed.  
-**Fullfilled:** no  
+**Fullfilled:** <span style="color:green">yes</span>  
 
 ### 5.1 Order and Filter Transaction History (Optional for expansion)
 **Description:** Allow users to categorize (order and filter) their transactions (e.g., groceries, rent, entertainment).  
@@ -117,7 +117,7 @@
 **Postconditions:** Budget goals are saved in the system.  
 **Fullfilled:** no  
 
-## 7. Generate Financial Reports
+## 7. Generate Financial Reports (Optional for expansion)
 **Description:** Enable users to generate reports summarizing their income, expenses, and savings.  
 **Actors:** User  
 **Preconditions:** User must be logged in.  

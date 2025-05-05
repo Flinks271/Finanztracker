@@ -15,6 +15,8 @@ import de.dhbw.finanztracker.ui.accountInteractions.SingularAccountOverview;
 import de.dhbw.finanztracker.ui.accountInteractions.UpdateAccount;
 import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.CreateNewMonthlyReaccuring;
 import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.CreateNewTransaction;
+import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.RemoveReaccuring;
+import de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions.RemoveTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +66,10 @@ public class AccountOverviewController {
                 case 'd':
                     switch (whatNext.charAt(1)) {
                         case 't':
-                            CreateNewTransaction.createTransaction(repositories, account, terminalUtility);
+                            RemoveTransaction.removeTransaction(repositories.get("transactionRepository"), account, account.getTransactionHistory().get(Integer.parseInt(whatNext.substring(2))), terminalUtility);
                             break;
                         case 'r':
-                            CreateNewMonthlyReaccuring.createReaccuring(repositories, account, terminalUtility);
+                            RemoveReaccuring.removeReaccuring(repositories.get("reaccuringRepository"), account, account.getReaccuringTransactions().get(Integer.parseInt(whatNext.substring(2))), terminalUtility);
                             break;
                         default:
                             break;

@@ -16,6 +16,7 @@ public class TransactionManagement {
     public static void deleteTransaction(IRepository repository, IAccount account, ITransaction transaction) {
         repository.deleteById(transaction.getTransactionId());
         account.removeTransaction(transaction);
+        account.setBalance(account.getBalance() - transaction.getAmount());
     }
 
     public static ITransaction createTransaction(Map<String, Object> transactionData, IRepository repository, IAccount account, ICounterparty counterparty, List<String> categories) {
@@ -28,16 +29,21 @@ public class TransactionManagement {
             counterparty
         );
 
+        
+
         String query = "INSERT INTO transactions (transaction_id, bank_account_id, amount, transaction_description, execution_date, entry_date, last_modified_date, counterparty_id) VALUES " +
                        "('" + transaction.getTransactionId() + "', '" + account.getAccountId() + "', '" + transaction.getAmount() + "', '" + transaction.getDescription() + "', '" +
                        transaction.getExecutionDate() + "', '" + transaction.getEntryDate() + "', '" + transaction.getLastModifiedDate() + "', '" + transaction.getCounterparty().getCounterpartyId() + "')";
         System.err.println(query);
         repository.save(query);
+        account.setBalance(account.getBalance() - transaction.getAmount());
 
         return transaction;
     }
 
-    public static void updateTransaction(IRepository repository, ITransaction transaction, Map<String, Object> inputs, ICounterparty counterparty, List<String> categories) {
+    public static void updateTransaction(IRepository repository, ITransaction transaction, Map<String, Object> inputs, ICounterparty counterparty, List<String> categories, IAccount account) {
+        account.setBalance(account.getBalance() - transaction.getAmount());
+        
         transaction.setAmount(Double.parseDouble((String) inputs.get("amount")));
         transaction.setDescription((String) inputs.get("description"));
         transaction.setExecutionDate((LocalDate) inputs.get("execution_date"));
@@ -54,5 +60,6 @@ public class TransactionManagement {
                        "WHERE transaction_id = '" + transaction.getTransactionId() + "'";
         System.err.println(query);
         repository.save(query);
+        account.setBalance(account.getBalance() - transaction.getAmount());
     }
 }
