@@ -100,10 +100,11 @@ public class TransactionRepository implements IRepository {
         }
         String query = "DELETE FROM transactions WHERE transaction_id = ?";
         query = query.replace("?", "'" + transactionId.toString() + "'");
+        System.err.println(query);
+        
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, transactionId.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
