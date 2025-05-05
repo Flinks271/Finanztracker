@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.sql.Date;
 
 import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.Transaction;
@@ -31,11 +32,11 @@ public class TransformTransactiondata {
 
         UUID transactionID = (UUID)map.get("transaction_id");
         double amount = ((BigDecimal)map.get("amount")).doubleValue();
-        String description = (String)map.get("description");
+        String description = (String)map.get("transaction_description");
         List<String> categories = null;
-        LocalDate executionDateString = (LocalDate)map.get("execution_date");
-        LocalDate entryDateString = (LocalDate)map.get("entry_date");
-        LocalDate lastModifiedDateString = (LocalDate)map.get("last_modified_date");
+        LocalDate executionDateString = ((Date)map.get("execution_date")).toLocalDate();
+        LocalDate entryDateString = ((Date)map.get("entry_date")).toLocalDate();
+        LocalDate lastModifiedDateString = ((Date)map.get("last_modified_date")).toLocalDate();
         boolean isPersisted = true;
         ICounterparty counterparty = new Counterparty((UUID)map.get("counterparty_id"), "", "");
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.sql.Date;
 
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.Counterparty;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
@@ -32,9 +33,9 @@ public class TransformReaccuringdata {
         String description = (String) map.get("reaccuring_description");
         List<String> categories = null;
         double amount = ((BigDecimal) map.get("amount")).doubleValue();
-        LocalDate startDate = (LocalDate) map.get("reaccuring_start_date");
-        LocalDate lastModifiedDate = (LocalDate) map.get("reaccuring_last_modified_date");
-        LocalDate endDate = (LocalDate) map.get("reaccuring_end_date");
+        LocalDate startDate = ((Date) map.get("reaccuring_start_date")).toLocalDate();
+        LocalDate lastModifiedDate = ((Date) map.get("reaccuring_last_modified_date")).toLocalDate();
+        LocalDate endDate = ((Date) map.get("reaccuring_end_date")).toLocalDate();
         int intervalInDays = (int) map.get("interval_in_days");
         boolean active = endDate.isAfter(lastModifiedDate); 
         ICounterparty counterparty = new Counterparty((UUID)map.get("counterparty_id"), "", "");
