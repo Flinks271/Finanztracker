@@ -35,9 +35,9 @@ public class TransformReaccuringdata {
         double amount = ((BigDecimal) map.get("amount")).doubleValue();
         LocalDate startDate = ((Date) map.get("reaccuring_start_date")).toLocalDate();
         LocalDate lastModifiedDate = ((Date) map.get("reaccuring_last_modified_date")).toLocalDate();
-        LocalDate endDate = ((Date) map.get("reaccuring_end_date")).toLocalDate();
+        LocalDate endDate = map.get("reaccuring_end_date") != null ? ((Date) map.get("reaccuring_end_date")).toLocalDate() : null;
         int intervalInDays = (int) map.get("interval_in_days");
-        boolean active = endDate.isAfter(lastModifiedDate); 
+        boolean active = (endDate == null) ? true : endDate.isAfter(lastModifiedDate);
         ICounterparty counterparty = new Counterparty((UUID)map.get("counterparty_id"), "", "");
 
         return new ReaccuringOneDayAMonth(

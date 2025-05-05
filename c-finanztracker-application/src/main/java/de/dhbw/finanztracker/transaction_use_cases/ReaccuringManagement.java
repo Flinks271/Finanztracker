@@ -23,7 +23,7 @@ public class ReaccuringManagement {
                                                 categories, 
                                                 Double.parseDouble((String) reaccuringData.get("amount")),
                                                 (LocalDate)reaccuringData.get("start_date"), 
-                                                (LocalDate)reaccuringData.get("last_modified_date"), 
+                                                LocalDate.now(), 
                                                 (LocalDate)reaccuringData.get("end_date"), 
                                                 (int)reaccuringData.get("interval_in_days"), 
                                                 (Boolean) reaccuringData.get("active"), 
