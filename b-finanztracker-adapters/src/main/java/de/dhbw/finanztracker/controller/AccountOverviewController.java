@@ -61,7 +61,7 @@ public class AccountOverviewController {
                 case 't':
                     whatNext = whatNext.substring(1);
                     index = Integer.parseInt(whatNext);
-                    CreateNewTransaction.updateTransaction(repositories, account.getTransactionHistory().get(index), terminalUtility);
+                    CreateNewTransaction.updateTransaction(repositories, account.getTransactionHistory().get(index), terminalUtility, account);
                     break;
                 case 'd':
                     switch (whatNext.charAt(1)) {
