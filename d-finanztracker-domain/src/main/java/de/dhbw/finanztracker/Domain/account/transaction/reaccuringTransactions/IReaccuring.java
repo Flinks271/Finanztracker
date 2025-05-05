@@ -34,5 +34,6 @@ public interface IReaccuring {
     void setIntervalInDays(int intervalInDays);
     void setCategories(List<String> categories);
     List<ITransaction> updateTransactions(IAccount account);
+    public List<ITransaction> updateTransactionsFirstTime(IAccount account);
     
 }

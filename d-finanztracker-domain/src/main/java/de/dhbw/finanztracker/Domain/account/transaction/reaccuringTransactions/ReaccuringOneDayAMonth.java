@@ -170,44 +170,67 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
         this.lastModifiedDate = lastModifiedDate != null ? LocalDate.parse(lastModifiedDate) : null;
     }
 
-    public boolean isDueOnDate(LocalDate date) {
-        if (!active || date.isBefore(startDate) || (endDate != null && date.isAfter(endDate))) {
-            return false;
-        }
-        return date.getDayOfMonth() == intervalInDays;
-    }
-
     public LocalDate getNextExecutionDate(LocalDate fromDate) {
-        LocalDate nextDate = fromDate.withDayOfMonth(startDate.getDayOfMonth());
-        if (nextDate.isBefore(fromDate)) {
-            nextDate = nextDate.plusMonths(1);
+        int dayOfMonthFromDate = fromDate.getDayOfMonth();
+        if (dayOfMonthFromDate < intervalInDays) {
+            return fromDate.withDayOfMonth(intervalInDays);
+        } else if (dayOfMonthFromDate == intervalInDays) {
+            return fromDate.withMonth(fromDate.getMonthValue() + 1);
+        } else {
+            return fromDate.plusMonths(1).withDayOfMonth(intervalInDays);
         }
-        return nextDate;
     }
 
+    @Override
     public List<ITransaction> updateTransactions(IAccount account) {
         LocalDate currentDate = lastModifiedDate != null ? lastModifiedDate.plusDays(1) : startDate;
         LocalDate today = LocalDate.now();
         List<ITransaction> transactions = new ArrayList<>();
 
         while (!currentDate.isAfter(today)) {
-            if (isDueOnDate(currentDate)) {
-                ITransaction transaction = new Transaction(
-                                                UUID.randomUUID(),
-                                                amount,
-                                                description,
-                                                currentDate,
-                                                categories,
-                                                counterparty
-                                            );
-                account.addTransaction(transaction);
-                transactions.add(transaction);
-
-            }
-            currentDate = currentDate.plusMonths(1).withDayOfMonth(startDate.getDayOfMonth());
+            
+            System.out.println(transactions);
+            ITransaction transaction = new Transaction(
+                                            UUID.randomUUID(),
+                                            amount,
+                                            description,
+                                            currentDate,
+                                            categories,
+                                            counterparty
+                                        );
+            account.addTransaction(transaction);
+            transactions.add(transaction);
+           
+            currentDate = currentDate.plusMonths(1);
         }
 
-        lastModifiedDate = today;
+        this.lastModifiedDate = today;
+        return transactions;
+    }
+
+    @Override
+    public List<ITransaction> updateTransactionsFirstTime(IAccount account) {
+        LocalDate currentDate = getNextExecutionDate(startDate);
+        LocalDate today = LocalDate.now();
+        List<ITransaction> transactions = new ArrayList<>();
+
+        while (!currentDate.isAfter(today)) {
+            
+            ITransaction transaction = new Transaction(
+                                            UUID.randomUUID(),
+                                            amount,
+                                            description,
+                                            currentDate,
+                                            categories,
+                                            counterparty
+                                        );
+            account.addTransaction(transaction);
+            transactions.add(transaction);
+           
+            currentDate = currentDate.plusMonths(1);
+        }
+
+        this.lastModifiedDate = today;
         return transactions;
     }
 }

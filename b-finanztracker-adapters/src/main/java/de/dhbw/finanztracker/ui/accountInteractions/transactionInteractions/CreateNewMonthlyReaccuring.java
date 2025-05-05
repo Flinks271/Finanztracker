@@ -5,6 +5,7 @@ import de.dhbw.finanztracker.TransformData.TransformCounterpartydata;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
@@ -32,6 +33,15 @@ public class CreateNewMonthlyReaccuring {
         if (reaccuring != null) {
             System.out.println("Reaccuring transaction " + reaccuring.getName() + " has been created successfully.");
             account.addReaccuringTransaction(reaccuring);
+
+            List<ITransaction> addedTransactions = reaccuring.updateTransactionsFirstTime(account);
+            System.out.println("Added transactions: " + addedTransactions.size());
+            for (ITransaction addedTransaction : addedTransactions) {
+                String query = "INSERT INTO transactions (transaction_id, bank_account_id, amount, transaction_description, execution_date, entry_date, last_modified_date, counterparty_id) VALUES " +
+                       "('" + addedTransaction.getTransactionId() + "', '" + account.getAccountId() + "', '" + addedTransaction.getAmount() + "', '" + addedTransaction.getDescription() + "', '" +
+                       addedTransaction.getExecutionDate() + "', '" + addedTransaction.getEntryDate() + "', '" + addedTransaction.getLastModifiedDate() + "', '" + addedTransaction.getCounterparty().getCounterpartyId() + "')";
+                repository.save(query);
+            }
         } else {
             System.out.println("No reaccuring transaction was created.");
         }

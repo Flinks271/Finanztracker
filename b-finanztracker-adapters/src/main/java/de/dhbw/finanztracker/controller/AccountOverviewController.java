@@ -132,6 +132,7 @@ public class AccountOverviewController {
             reaccuring.setCategories(categories);
 
             List<ITransaction> addedTransactions = reaccuring.updateTransactions(account);
+            System.out.println("Added transactions: " + addedTransactions.size());
             for (ITransaction addedTransaction : addedTransactions) {
                 String query = "INSERT INTO transactions (transaction_id, bank_account_id, amount, transaction_description, execution_date, entry_date, last_modified_date, counterparty_id) VALUES " +
                        "('" + addedTransaction.getTransactionId() + "', '" + account.getAccountId() + "', '" + addedTransaction.getAmount() + "', '" + addedTransaction.getDescription() + "', '" +
