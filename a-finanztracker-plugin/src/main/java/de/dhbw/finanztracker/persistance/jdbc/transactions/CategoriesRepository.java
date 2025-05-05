@@ -57,7 +57,7 @@ public class CategoriesRepository implements IRepository{
     @Override
     public List<Map<String, Object>> getCond(String condition) {
         List<Map<String, Object>> rows = new ArrayList<>();
-        String query = "SELECT * FROM categories {condition}";
+        String query = "SELECT * FROM categories c {condition}";
         query = query.replace("{condition}", condition);
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);

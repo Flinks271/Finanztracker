@@ -29,7 +29,7 @@ public class AccountOverviewController {
     public static void Start(Map<String, IRepository> repositories,IAccount account, TerminalUtility terminalUtility, User user) {
         
         System.out.println("Starting the AccountOverview...");
-        System.out.println("Loading accounts for user: " + account.getAccountName());
+        System.out.println("Loading accounts for account: " + account.getAccountName());
         
 
         loadAcountData(account, repositories);
@@ -107,7 +107,7 @@ public class AccountOverviewController {
             ICounterparty counterparty = TransformCounterpartydata.TransformCounterparty(counterList.get(0));
             transaction.setCounterparty(counterparty);
             List<Map<String, Object>> categoryList =    categoriesRepository.
-                                                        getCond("JOIN relation_transaction_category rtc ON trc.transaction_id = '" + id + "'");
+                                                        getCond("JOIN relation_transaction_category rtc ON rtc.category_name = c.category_name WHERE rtc.transaction_id ='" + id + "'");
             for (Map<String,Object> category: categoryList) {
                 categories.add((String)category.get("category_name"));
             }
@@ -125,11 +125,19 @@ public class AccountOverviewController {
             ICounterparty counterparty = TransformCounterpartydata.TransformCounterparty(counterList.get(0));
             reaccuring.setCounterparty(counterparty);
             List<Map<String, Object>> categoryList =    categoriesRepository.
-                                                        getCond("JOIN relation_reaccuring_category rtc ON trc.transaction_id = '" + id + "'");
+                                                        getCond("JOIN relation_reaccuring_category rrc ON rrc.category_name = c.category_name WHERE rrc.reaccuring_id ='" + id + "'");
             for (Map<String,Object> category: categoryList) {
                 categories.add((String)category.get("category_name"));
             }
             reaccuring.setCategories(categories);
+
+            List<ITransaction> addedTransactions = reaccuring.updateTransactions(account);
+            for (ITransaction addedTransaction : addedTransactions) {
+                String query = "INSERT INTO transactions (transaction_id, bank_account_id, amount, transaction_description, execution_date, entry_date, last_modified_date, counterparty_id) VALUES " +
+                       "('" + addedTransaction.getTransactionId() + "', '" + account.getAccountId() + "', '" + addedTransaction.getAmount() + "', '" + addedTransaction.getDescription() + "', '" +
+                       addedTransaction.getExecutionDate() + "', '" + addedTransaction.getEntryDate() + "', '" + addedTransaction.getLastModifiedDate() + "', '" + addedTransaction.getCounterparty().getCounterpartyId() + "')";
+                transactionRepository.save(query);
+            }
         }
         account.setReaccuring(reaccurings);
     }

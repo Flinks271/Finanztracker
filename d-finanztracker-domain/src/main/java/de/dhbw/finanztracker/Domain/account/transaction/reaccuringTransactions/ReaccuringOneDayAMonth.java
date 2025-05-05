@@ -1,9 +1,13 @@
 package de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.IAccount;
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
+import de.dhbw.finanztracker.domain.account.transaction.Transaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 
 public class ReaccuringOneDayAMonth implements IReaccuring {
@@ -166,12 +170,11 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
         this.lastModifiedDate = lastModifiedDate != null ? LocalDate.parse(lastModifiedDate) : null;
     }
 
-    // Additional helper methods
     public boolean isDueOnDate(LocalDate date) {
         if (!active || date.isBefore(startDate) || (endDate != null && date.isAfter(endDate))) {
             return false;
         }
-        return date.getDayOfMonth() == startDate.getDayOfMonth();
+        return date.getDayOfMonth() == intervalInDays;
     }
 
     public LocalDate getNextExecutionDate(LocalDate fromDate) {
@@ -180,5 +183,31 @@ public class ReaccuringOneDayAMonth implements IReaccuring {
             nextDate = nextDate.plusMonths(1);
         }
         return nextDate;
+    }
+
+    public List<ITransaction> updateTransactions(IAccount account) {
+        LocalDate currentDate = lastModifiedDate != null ? lastModifiedDate.plusDays(1) : startDate;
+        LocalDate today = LocalDate.now();
+        List<ITransaction> transactions = new ArrayList<>();
+
+        while (!currentDate.isAfter(today)) {
+            if (isDueOnDate(currentDate)) {
+                ITransaction transaction = new Transaction(
+                                                UUID.randomUUID(),
+                                                amount,
+                                                description,
+                                                currentDate,
+                                                categories,
+                                                counterparty
+                                            );
+                account.addTransaction(transaction);
+                transactions.add(transaction);
+
+            }
+            currentDate = currentDate.plusMonths(1).withDayOfMonth(startDate.getDayOfMonth());
+        }
+
+        lastModifiedDate = today;
+        return transactions;
     }
 }

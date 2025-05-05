@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import de.dhbw.finanztracker.domain.account.IAccount;
+import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 
 public interface IReaccuring {
@@ -31,5 +33,6 @@ public interface IReaccuring {
     void setEndDate(String endDate);
     void setIntervalInDays(int intervalInDays);
     void setCategories(List<String> categories);
+    List<ITransaction> updateTransactions(IAccount account);
     
 }
