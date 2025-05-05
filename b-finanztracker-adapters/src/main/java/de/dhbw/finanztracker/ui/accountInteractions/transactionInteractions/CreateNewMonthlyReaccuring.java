@@ -1,12 +1,10 @@
 package de.dhbw.finanztracker.ui.accountInteractions.transactionInteractions;
 
 import de.dhbw.finanztracker.transaction_use_cases.ReaccuringManagement;
-import de.dhbw.finanztracker.transaction_use_cases.TransactionManagement;
 import de.dhbw.finanztracker.TransformData.TransformCounterpartydata;
 import de.dhbw.finanztracker.domain.IRepository;
 import de.dhbw.finanztracker.domain.account.IAccount;
 import de.dhbw.finanztracker.domain.account.transaction.reaccuringTransactions.IReaccuring;
-import de.dhbw.finanztracker.domain.account.transaction.ITransaction;
 import de.dhbw.finanztracker.domain.account.transaction.counterparty.ICounterparty;
 import de.dhbw.finanztracker.ui.TerminalUtility;
 
