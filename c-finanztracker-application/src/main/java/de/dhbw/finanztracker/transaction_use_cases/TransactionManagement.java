@@ -16,7 +16,6 @@ public class TransactionManagement {
     public static void deleteTransaction(IRepository repository, IAccount account, ITransaction transaction) {
         repository.deleteById(transaction.getTransactionId());
         account.removeTransaction(transaction);
-        account.setBalance(account.getBalance() - transaction.getAmount());
     }
 
     public static ITransaction createTransaction(Map<String, Object> transactionData, IRepository repository, IAccount account, ICounterparty counterparty, List<String> categories) {
@@ -36,7 +35,6 @@ public class TransactionManagement {
                        transaction.getExecutionDate() + "', '" + transaction.getEntryDate() + "', '" + transaction.getLastModifiedDate() + "', '" + transaction.getCounterparty().getCounterpartyId() + "')";
         System.err.println(query);
         repository.save(query);
-        account.setBalance(account.getBalance() - transaction.getAmount());
 
         return transaction;
     }
