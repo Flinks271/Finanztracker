@@ -88,10 +88,10 @@ public class CreateNewMonthlyReaccuring {
         String inputAmount;
         do {
             inputAmount = terminalUtility.readLine();
-            if (!inputAmount.matches("^\\d+(\\.|,)?(\\d{1,2})?$")) {
+            if (!inputAmount.matches("^-?\\d+(\\.|,)?(\\d{1,2})?$")) {
                 System.out.println("Invalid amount format. Please enter a valid double value with up to 2 decimal places.");
             }
-        } while (!inputAmount.matches("^\\d+(\\.|,)?(\\d{1,2})?$"));
+        } while (!inputAmount.matches("^-?\\d+(\\.|,)?(\\d{1,2})?$"));
         inputs.put("amount", inputAmount.replace(",", "."));
 
         System.out.println("Please enter the start date (YYYY-MM-DD): ");

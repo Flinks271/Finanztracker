@@ -56,7 +56,7 @@ public class CreateNewAccount {
             System.out.println("The allowed form for the Balance is Double with 2 digits following the point: ");
             inputBalance = terminalUtility.readLine();
 
-        } while (!inputBalance.matches("^\\d+(\\.|,)?(\\d{1,2})?$"));
+        } while (!inputBalance.matches("^-?\\d+(\\.|,)?(\\d{1,2})?$"));
         inputs.put("balance", inputBalance.replace(",", "."));
 
         
