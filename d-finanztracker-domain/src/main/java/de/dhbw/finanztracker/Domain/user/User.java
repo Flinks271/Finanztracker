@@ -33,6 +33,7 @@ public class User {
     public User(UUID userId,String username, List<IAccount> accounts) {
         Validate.notNull(username, "Username must not be null");
         Validate.notNull(userId, "userId must not be null");
+        Validate.notNull(accounts, "Accounts must not be null");
 
         this.userId = userId;
         this.username = username;
