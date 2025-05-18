@@ -43,11 +43,25 @@ public class CreateNewAccount {
         Map<String, String> inputs = new HashMap<>();
 
         System.out.println("Please enter the account name: ");
-        String inputName = terminalUtility.readLine();
+        String inputName = "";
+        do {
+            inputName = terminalUtility.readLine();
+            if (inputName == null || inputName.isEmpty()) {
+                System.out.println("Account name cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputName == null || inputName.isEmpty());
         inputs.put("account_name", inputName);
 
         System.out.println("Please enter the bank name: ");
-        String inputBankName = terminalUtility.readLine();
+        String inputBankName = "";
+        do {
+            inputBankName = terminalUtility.readLine();
+            if (inputBankName == null || inputBankName.isEmpty()) {
+                System.out.println("Bank name cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputBankName == null || inputBankName.isEmpty());
         inputs.put("bank_name", inputBankName);
 
         String inputBalance = null;

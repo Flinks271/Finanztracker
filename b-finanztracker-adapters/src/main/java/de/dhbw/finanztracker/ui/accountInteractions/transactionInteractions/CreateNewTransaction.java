@@ -77,7 +77,14 @@ public class CreateNewTransaction {
         inputs.put("amount", inputAmount.replace(",", "."));
 
         System.out.println("Please enter the transaction description: ");
-        String inputDescription = terminalUtility.readLine();
+        String inputDescription = "";
+        do {
+            inputDescription = terminalUtility.readLine();
+            if (inputDescription == null || inputDescription.isEmpty()) {
+                System.out.println("Transaction description cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputDescription == null || inputDescription.isEmpty());
         inputs.put("description", inputDescription);
 
         System.out.println("Please enter the execution date (YYYY-MM-DD): ");
@@ -162,7 +169,14 @@ public class CreateNewTransaction {
 
 
         while (true) {
-            String category = terminalUtility.readLine();
+            String category = "";
+            do {
+                category = terminalUtility.readLine();
+                if (category == null || category.isEmpty()) {
+                    System.out.println("Category cannot be empty. Please try again.");
+                    terminalUtility.pauseForOneSecond();
+                }
+            } while (category == null || category.isEmpty());
             if (category.equalsIgnoreCase("done")) {
                 break;
             }

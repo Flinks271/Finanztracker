@@ -12,7 +12,15 @@ public class NewUserRegistration {
         terminalUtility.clearScreen();
         System.out.println("Please enter a username: ");
 
-        String inputUsername = terminalUtility.readLine();
+        String inputUsername = "";
+        do {
+            inputUsername = terminalUtility.readLine();
+            if (inputUsername == null || inputUsername.isEmpty()) {
+                System.out.println("Username cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputUsername == null || inputUsername.isEmpty());
+
         user = UserRegistration.registerUser(inputUsername, repository);
         System.out.println("User " + inputUsername + " has been registered successfully.");
         

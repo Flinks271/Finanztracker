@@ -77,11 +77,23 @@ public class CreateNewMonthlyReaccuring {
         Map<String, Object> inputs = new HashMap<>();
 
         System.out.println("Please enter the name of the reaccuring transaction: ");
-        String inputName = terminalUtility.readLine();
+        String inputName = "";
+        do {
+            inputName = terminalUtility.readLine();
+            if (inputName == null || inputName.isEmpty()) {
+                System.out.println("Reaccuring transaction name cannot be empty. Please try again.");
+            }
+        } while (inputName == null || inputName.isEmpty());
         inputs.put("name", inputName);
 
         System.out.println("Please enter the description of the reaccuring transaction: ");
-        String inputDescription = terminalUtility.readLine();
+        String inputDescription = "";
+        do {
+            inputDescription = terminalUtility.readLine();
+            if (inputDescription == null || inputDescription.isEmpty()) {
+                System.out.println("Reaccuring transaction description cannot be empty. Please try again.");
+            }
+        } while (inputDescription == null || inputDescription.isEmpty());
         inputs.put("description", inputDescription);
 
         System.out.println("Please enter the amount: ");
@@ -120,7 +132,18 @@ public class CreateNewMonthlyReaccuring {
         inputs.put("end_date", endDate);
 
         System.out.println("Please enter the interval in days: ");
-        int intervalInDays = Integer.parseInt(terminalUtility.readLine());
+        int intervalInDays = -1;
+        do {
+            String inputInterval = terminalUtility.readLine();
+            try {
+                intervalInDays = Integer.parseInt(inputInterval);
+                if (intervalInDays <= 0 || intervalInDays > 31) {
+                    System.out.println("Interval in days must be greater than 0 and less than or equal to 31. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number between 1 and 31.");
+            }
+        } while (intervalInDays <= 0 || intervalInDays > 31);
         inputs.put("interval_in_days", intervalInDays);
 
         inputs.put("active", true); // Default to active
@@ -191,7 +214,13 @@ public class CreateNewMonthlyReaccuring {
         System.out.println("");
 
         while (true) {
-            String category = terminalUtility.readLine();
+            String category = "";
+            do {
+                category = terminalUtility.readLine();
+                if (category == null || category.isEmpty()) {
+                    System.out.println("Category cannot be empty. Please try again.");
+                }
+            } while (category == null || category.isEmpty());
             if (category.equalsIgnoreCase("done")) {
                 break;
             }

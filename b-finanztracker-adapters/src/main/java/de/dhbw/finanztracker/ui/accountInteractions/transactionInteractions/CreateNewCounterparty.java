@@ -34,11 +34,25 @@ public class CreateNewCounterparty {
         Map<String, String> inputs = new HashMap<>();
 
         System.out.println("Please enter the counterparty name: ");
-        String inputName = terminalUtility.readLine();
+        String inputName = "";
+        do {
+            inputName = terminalUtility.readLine();
+            if (inputName == null || inputName.isEmpty()) {
+                System.out.println("Counterparty name cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputName == null || inputName.isEmpty());
         inputs.put("name", inputName);
 
         System.out.println("Please enter the counterparty description: ");
-        String inputDescription = terminalUtility.readLine();
+        String inputDescription = "";
+        do {
+            inputDescription = terminalUtility.readLine();
+            if (inputDescription == null || inputDescription.isEmpty()) {
+                System.out.println("Counterparty description cannot be empty. Please try again.");
+                terminalUtility.pauseForOneSecond();
+            }
+        } while (inputDescription == null || inputDescription.isEmpty());
         inputs.put("description", inputDescription);
 
         return inputs;
